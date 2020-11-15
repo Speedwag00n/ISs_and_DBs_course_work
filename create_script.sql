@@ -27,7 +27,7 @@ CREATE TABLE "USER"
 CREATE TABLE REVIEW
 (
     ID            SERIAL PRIMARY KEY,
-    CONTENT       VARCHAR(32),
+    CONTENT       VARCHAR(256),
     CREATION_DATE TIMESTAMP WITH TIME ZONE                                                               NOT NULL,
     AUTHOR        INTEGER REFERENCES "USER" ON UPDATE CASCADE ON DELETE CASCADE CHECK (TARGET != AUTHOR) NOT NULL,
     TARGET        INTEGER REFERENCES "USER" ON UPDATE CASCADE ON DELETE CASCADE CHECK (TARGET != AUTHOR) NOT NULL,
@@ -47,6 +47,7 @@ CREATE TABLE OBJECT
 CREATE TABLE OFFER
 (
     ID            SERIAL PRIMARY KEY,
+    NAME          VARCHAR(32)                                                   NOT NULL,
     DESCRIPTION   VARCHAR(256),
     STATUS        "STATUS" DEFAULT 'OPEN'                                       NOT NULL,
     CREATION_DATE TIMESTAMP WITH TIME ZONE                                      NOT NULL,
