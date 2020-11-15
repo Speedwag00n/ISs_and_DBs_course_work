@@ -70,6 +70,7 @@ INSERT INTO OBJECT (NAME, DESCRIPTION, OBJECT_STATE, USER_ID) VALUES -- TODO з�
 ('Терка', 'На каждой стороне дырочки разного размера', 'IN_STOCK', 2),
 ('Гладильная доска', 'Маленькая, но очень удобная', 'SHARED', 3),
 ('Зарядка TYPE-C', 'Заряжает!', 'SHARED',  4),
+('Доска для резки', 'деревянная', 'IN_STOCK', 24),
 ('Парацетомол', 'Еще советские, проверенные временем', 'SHARED', '14'),
 ('Тазик', 'Синий', 'IN_STOCK', '24'),
 ('Кружка с котиком', 'Очень милый черный котик на кружке!', 'IN_STOCK', '1'),
@@ -118,8 +119,11 @@ INSERT INTO REQUEST (NAME, CONTENT, AUTHOR) VALUES
 ('Куплю фен', 'А я как раз отрастил волосы))))))))))))', 5),
 ('Помогите закрыть ПИП', 'Цопа меня отчислит, спасите от армии!', 11);
 
+INSERT INTO SERVICE_OFFER_REQUEST (REQUEST, OFFER, SERVICE) VALUES
+(2, 8, 4);
 
-
+INSERT INTO OBJECT_OFFER_REQUEST (REQUEST, OFFER, OBJECT) VALUES
+(1, 1, 5);
 
 INSERT INTO OBJECT_SUGGESTION (SUGGESTION, OBJECT) VALUES
 ('1','7'),
@@ -132,11 +136,11 @@ INSERT INTO SERVICE_SUGGESTION (SUGGESTION, SERVICE) VALUES
 ('6','1'),
 ('7','2');
 
---TODO SUGGESTION_REQUEST
+INSERT INTO SUGGESTION_REQUEST (REQUEST, SUGGESTION) VALUES
+(3, 4),
+(4, 6);
 
---TODO OBJECT_OFFER_REQUEST
 
---TODO SERVICE_OFFER_REQUEST
 
 --TODO COMMENT
 
