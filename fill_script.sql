@@ -67,11 +67,15 @@ INSERT INTO REVIEW (CONTENT, CREATION_DATE, AUTHOR, TARGET, RATING) VALUES
 
 INSERT INTO OBJECT (NAME, DESCRIPTION, OBJECT_STATE, USER_ID) VALUES -- TODO загрузить изображение!
 ('Отвертка', 'Проверенная временем, крестообразная', 'IN_STOCK', 1),
-('Тёрка', 'На каждой стороне дырочки разного размера', 'IN_STOCK', 2),
+('Терка', 'На каждой стороне дырочки разного размера', 'IN_STOCK', 2),
 ('Гладильная доска', 'Маленькая, но очень удобная', 'SHARED', 3),
 ('Зарядка TYPE-C', 'Заряжает!', 'SHARED',  4),
 ('Парацетомол', 'Еще советские, проверенные временем', 'SHARED', '14'),
-('Тазик', 'Синий', 'IN_STOCK', '24');
+('Тазик', 'Синий', 'IN_STOCK', '24'),
+('Кружка с котиком', 'Очень милый черный котик на кружке!', 'IN_STOCK', '1'),
+('Java Библиотека Профессионала', 'Топовая книга по Java SE', 'IN_STOCK', '1'),
+('Фнг Philips', 'Почти как из магазина!', 'IN_STOCK', '1'),
+('Зарядка для Samsung', '', 'IN_STOCK', '1');
 
 INSERT INTO OFFER (NAME, DESCRIPTION, STATUS, CREATION_DATE, AUTHOR) VALUES
 ('Доска для резки', 'Нужно быстро порезать морковку', 'OPEN', '2020-11-15 17:30:00+03', '1'),
@@ -87,7 +91,7 @@ INSERT INTO SUGGESTION (NAME,DESCRIPTION,STATUS,CREATION_DATE,AUTHOR) VALUES
 ('Книга Хорсмана по Java', 'Теперь я питонист и больше не нуждаютсь в данной книге', 'CANCELED', '2020-11-12 15:40:00+03', '5'),
 ('Терка', 'Лучшая терка в мире за 100 рублей!', 'OPEN', '2020-11-12 19:22:37+03', '7'),
 ('Продам фен', 'Теперь я хожу с короткой прической, так что я хочу продать свой фен', 'OPEN', '2020-11-09 21:49:33+03', '11'),
-('Зарадяка для Samsung', 'Поздравьте, купил новенький Iphone, поэтому зарядка от Samsung мне не очень то и нужна	', 'RESOLVED', '2020-10-29 08:57:08+03', '14'),
+('Зарадяка для Samsung', 'Поздравьте, купил новенький Iphone, поэтому зарядка от Samsung мне не очень то и нужна', 'RESOLVED', '2020-10-29 08:57:08+03', '14'),
 ('Репетитор по программированию', 'Готов помочь вам с лабами по Java. Детали в ЛС', 'OPEN', '2020-11-07 13:52:31+03', '23'),
 ('Уборка', 'Готов помочь вам с уборкой за скромную плату', 'OPEN', '2020-11-13 17:41:55+03', '38');
 
@@ -102,23 +106,36 @@ INSERT INTO CATEGORY (NAME, DESCRIPTION) VALUES
 ('ЭЛЕКТРОНИКА','ВСЕ ДЛЯ ЭЛЕКТРОННИКИ'),
 ('ДЛЯ СПОРТА','ДЛЯ СПОРТИВНЫХ МУЖЧИН'),
 ('ХИМИЯ','ЛУЧШЕ В ПЕРЧАТКАХ'),
-('ГИГЕНА','БУДЬ ЧИСТЫМ');
+('ГИГИЕНА','БУДЬ ЧИСТЫМ');
 
 INSERT INTO REQUEST VALUES
 
---TODO SERVICE_OFFER
+INSERT INTO OBJECT_SUGGESTION (SUGGESTION, OBJECT) VALUES
+('1','7'),
+('2','8'),
+('3','2'),
+('4','9'),
+('5','10');
 
---TODO OBJECT_SUGGESTION
-
---TODO SUGGESTION_COMMENT
-
---TODO SERVICE_SUGGESTION
+INSERT INTO SERVICE_SUGGESTION (SUGGESTION, SERVICE) VALUES
+('6','1'),
+('7','2');
 
 --TODO SUGGESTION_REQUEST
 
---TODO OFFER_REQUEST
+--TODO OBJECT_OFFER_REQUEST
 
---TODO OBJECT_OFFER
+--TODO SERVICE_OFFER_REQUEST
+
+--TODO COMMENT
+
+--TODO OFFER_COMMENT
+
+--TODO SUGGESTION_COMMENT
+
+--TODO CATEGORY_OF_OBJECT
+
+--TODO CATEGORY_OF_SERVICE
 
 INSERT INTO WHEN_CAN_DO (DATETIME_START,DATETIME_END,SERVICE_SUGGESTION) VALUES
 ('2020-11-09 00:00:00+03', '2020-11-13 00:00:00+03', '6'),
