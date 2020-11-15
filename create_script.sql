@@ -40,7 +40,7 @@ CREATE TABLE OBJECT
     NAME        VARCHAR(32)                                                   NOT NULL,
     DESCRIPTION VARCHAR(256)                                                  NOT NULL,
     IMAGE       BYTEA,
-    STATE       "OBJECT_STATE" DEFAULT 'IN_STOCK',
+    OBJECT_STATE       "OBJECT_STATE" DEFAULT 'IN_STOCK',
     USER_ID     INTEGER REFERENCES "USER" ON UPDATE CASCADE ON DELETE CASCADE NOT NULL
 );
 
