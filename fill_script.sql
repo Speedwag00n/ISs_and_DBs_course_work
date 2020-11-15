@@ -65,7 +65,7 @@ INSERT INTO REVIEW (CONTENT, CREATION_DATE, AUTHOR, TARGET, RATING) VALUES
 ('Огромное спасибо за тёрку, выручил!', '2020-11-10 12:12:00+03', 2, 4, 4.3),
 ('Спасибо за утюг, но работает он не очень(', '2020-10-12 11:13:00+03', 5, 2, 3);
 
-INSERT INTO OBJECT (NAME, DESCRIPTION, STATE, USER_ID) VALUES -- TODO загрузить изображение!
+INSERT INTO OBJECT (NAME, DESCRIPTION, OBJECT_STATE, USER_ID) VALUES -- TODO загрузить изображение!
 ('Отвертка', 'Проверенная временем, крестообразная', 'IN_STOCK', 1),
 ('Терка', 'На каждой стороне дырочки разного размера', 'IN_STOCK', 2),
 ('Гладильная доска', 'Маленькая, но очень удобная', 'SHARED', 3),
