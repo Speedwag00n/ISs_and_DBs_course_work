@@ -107,7 +107,10 @@ INSERT INTO CATEGORY (NAME, DESCRIPTION) VALUES
 ('ЭЛЕКТРОНИКА','ВСЕ ДЛЯ ЭЛЕКТРОННИКИ'),
 ('ДЛЯ СПОРТА','ДЛЯ СПОРТИВНЫХ МУЖЧИН'),
 ('ХИМИЯ','ЛУЧШЕ В ПЕРЧАТКАХ'),
-('ГИГИЕНА','БУДЬ ЧИСТЫМ');
+('ГИГИЕНА','БУДЬ ЧИСТЫМ'),
+('УЧЕБА','СТАНЬ УМНЕНЬКИМ'),
+('ДЛЯ ДУШИ','САМАЯ ДУШЕВНАЯ КАТЕГОРИЯ'),
+('РЕМОНТ','КРИВОРУКИМ ТУТ НЕ МЕСТО');
 
 INSERT INTO REQUEST (NAME, CONTENT, AUTHOR) VALUES
 ('Дам вам доску', 'Есть деревянная доска для вас', 26),
@@ -143,7 +146,12 @@ INSERT INTO SERVICE_SUGGESTION (SUGGESTION, SERVICE) VALUES
 
 --TODO CATEGORY_OF_OBJECT
 
---TODO CATEGORY_OF_SERVICE
+INSERT INTO CATEGORY_OF_SERVICE (SERVICE_ID, CATEGORY_ID) VALUES
+('1','6'),
+('2','5'),
+('3','1'),
+('3','7'),
+('4','8');
 
 INSERT INTO WHEN_CAN_DO (DATETIME_START,DATETIME_END,SERVICE_SUGGESTION) VALUES
 ('2020-11-09 00:00:00+03', '2020-11-13 00:00:00+03', '6'),
