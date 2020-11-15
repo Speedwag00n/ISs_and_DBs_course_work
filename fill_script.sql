@@ -1,14 +1,12 @@
 INSERT INTO DORMITORY (NAME,ADDRESS,DESCRIPTION) VALUES
-('ultrices','104-4857 Adipiscing, Ave','Proin ultrices. Duis volutpat nunc sit amet metus. Aliquam erat volutpat. Nulla facilisis. Suspendisse commodo tincidunt nibh. Phasellus nulla. Integer vulputate, risus a'),
-('enim.','7291 Libero Road','nibh enim, gravida sit amet, dapibus id, blandit at, nisi. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin vel'),
-('in','Ap #484-7222 Nisi Road','lectus. Nullam suscipit, est ac facilisis facilisis, magna tellus faucibus leo, in lobortis tellus justo'),
-('nec,','8452 Eros St.','consectetuer mauris id sapien. Cras dolor dolor, tempus non, lacinia at, iaculis quis, pede. Praesent eu dui.'),
-('pharetra,','Ap #529-6500 Eleifend Avenue','Morbi quis urna. Nunc quis arcu vel quam dignissim pharetra. Nam ac nulla. In tincidunt'),
-('ligula','3593 Purus. Street','tellus id nunc interdum feugiat. Sed nec metus facilisis lorem tristique aliquet. Phasellus fermentum convallis ligula. Donec luctus aliquet odio. Etiam'),
-('dui,','P.O. Box 854, 2517 Nunc St.','non dui nec urna suscipit nonummy. Fusce fermentum fermentum arcu. Vestibulum ante ipsum'),
-('semper','Ap #588-8522 Augue Street','Nunc mauris. Morbi non sapien molestie orci tincidunt adipiscing. Mauris molestie pharetra nibh. Aliquam ornare, libero at auctor ullamcorper, nisl arcu iaculis enim, sit amet'),
-('Sed','736-3708 Posuere Avenue','Nunc mauris. Morbi non sapien molestie orci tincidunt adipiscing. Mauris molestie pharetra nibh. Aliquam ornare, libero at auctor ullamcorper,'),
-('Vivamus','P.O. Box 266, 336 Commodo Street','velit egestas lacinia. Sed congue, elit sed consequat auctor, nunc nulla vulputate dui, nec tempus mauris erat eget ipsum. Suspendisse sagittis.');
+('MSG','104-4857 Adipiscing, Ave','The best dormitory in world. We have banya'),
+('Vyasma','7291 Libero Road','A lot of chines'),
+('Lesopilka','Ap #484-7222 Nisi Road','For a bad students'),
+('Alpyika','8452 Eros St.','Here erydan lives'),
+('Lensoveta','Ap #529-6500 Eleifend Avenue','Not good, not bad'),
+('BELORUSSKAYA','3593 Purus. Street','Far from center'),
+('Politex_dormitrory','P.O. Box 854, 2517 Nunc St.','For politex''s students'),
+('PUNK_SPBSU','Petegrof 5 street','We have our own shop!');
 
 INSERT INTO "USER" (NAME,SURNAME,EMAIL,DORMITORY,TELEPHONE,PASSWORD,PASSWORD_SALT) VALUES
 ('Austin','Stokes','egestas.lacinia.Sed@adipiscingligulaAenean.net','1','+79212345678','UYJbrFdCAF8I0e7FZYvEGYDBLWtMbotsI4A8o1zVz61GXlQbOnm2bgxBUoMLlFDkzeFg9JN0gu40Kq23bOu9EwG9HMeMgObhM9F1nIy5lgXTOlTpHGq3tePhzCOGjAQo','9O8MTwCz0acCDoiG'),
@@ -61,6 +59,26 @@ INSERT INTO "USER" (NAME,SURNAME,EMAIL,DORMITORY,TELEPHONE,PASSWORD,PASSWORD_SAL
 ('Halee','Mcdonald','feugiat.non@temporeratneque.edu','6','+79212345678','fQi0IzIo74IUwsaoHoWi9gWLqy5hTjuMOoVmJsEiyYUqu1MPFXayf3atm8ZFqqS1SMXrdwVaKzoqeaTfyknhPHW1ns0kRMNfqZSyZqppOoqRTmzC1RtOiYW2sqDX2Ap6','pOjU0DyuV6QufI1u'),
 ('Ivor','Britt','eu.euismod.ac@Pellentesquehabitantmorbi.org','7','+79212345678','7SX54ouQYXLGpb28Z9jMcMbspXQV0fQQNL5vs2rtmb69GRxRP0T0UOP858myCgHq2e7Vje6dTIuG8ekYeT5opMeM3pxiPYrL17EOussGMc2ABkA7oqsKF0ZoW65WD6ro','YTrbVCQxeCb5JyVh'),
 ('Flavia','Kim','nunc.ac@pellentesquetellussem.edu','7','+79212345678','nyxPUp0YtNWcY2FVbG6DjL3Xz04YvKQ1t5XY1cOefln2gRSG82TwmO8dthYpYYrCo10z4iLuVlBx9jQ2rZRez9aERB9YIyVvDU8nrzkddBcDbZkP5EuUdFX2mQu66Nv4','gT1sFlr1fuesTqGK');
+
+INSERT INTO REVIEW (CONTENT, CREATION_DATE, AUTHOR, TARGET, RATING) VALUES
+('Крутой парень, одолжил мне отвертку. Отвертка отличная!', '2020-11-09 00:00:00+03', 3, 5, 5),
+('Огромное спасибо за тёрку, выручил!', '2020-11-10 12:12:00+03', 2, 4, 4.3),
+('Спасибо за утюг, но работает он не очень(', '2020-10-12 11:13:00+03', 5, 2, 3);
+
+INSERT INTO OBJECT (NAME, DESCRIPTION, CATEGORY, OBJECT_STATE, USER_ID) VALUES -- TODO загрузить изображение!
+('Отвертка', 'Проверенная временем, крестообразная', 'ИНСТРУМЕНТЫ', 'IN_STOCK', 1),
+('Тёрка', 'На каждой стороне дырочки разного размера', 'КУХНЯ', 'IN_STOCK', 2),
+('Гладильная доска', 'Маленькая, но очень удобная', 'ОДЕЖДА', 'SHARED', 3),
+('Зарядка TYPE-C', 'Заряжает!', 'ЭЛЕКТРОНИКА', 'SHARED', 4);
+
+INSERT INTO OFFER (NAME, DESCRIPTION, STATUS, CREATION_DATE, AUTHOR) VALUES
+('Доска для резки', 'Нужно быстро порезать морковку', 'OPEN', '2020-11-15 17:30:00+03', '1'),
+('Парацетомол', 'От математики голова разболелась!', 'CANCELED', '2020-10-13 12:40:00+03', '5'),
+('Точилка для ножей', 'Все ножи затупились(', 'OPEN', '2020-11-13 12:25:37+03', '7'),
+('Мышь', 'Тачпад отстой. Одолжите мышку', 'OPEN', '2020-11-01 21:39:32+03', '8'),
+('Тазик', 'Для стирки!', 'RESOLVED', '2020-10-29 09:52:08+03', '17'),
+('2 листа бумаги', 'Распечатать отчет по БД!', 'OPEN', '2020-11-07 13:22:31+03', '23'),
+('Гантели', 'Надо подкачаться, так сказать ', 'OPEN', '2020-11-04 17:31:22+03', '38');
 
 INSERT INTO SUGGESTION (NAME,DESCRIPTION,STATUS,CREATION_DATE,AUTHOR) VALUES
 ('Раздам кружки', 'Получил кучу кружек на разных мероприятиях и готов поделиться ими с вами!', 'OPEN', '2020-11-14 16:30:00+03', '1'),
