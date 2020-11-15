@@ -63,19 +63,19 @@ INSERT INTO "USER" (NAME,SURNAME,EMAIL,DORMITORY,TELEPHONE,PASSWORD,PASSWORD_SAL
 ('Flavia','Kim','nunc.ac@pellentesquetellussem.edu','7','+79212345678','nyxPUp0YtNWcY2FVbG6DjL3Xz04YvKQ1t5XY1cOefln2gRSG82TwmO8dthYpYYrCo10z4iLuVlBx9jQ2rZRez9aERB9YIyVvDU8nrzkddBcDbZkP5EuUdFX2mQu66Nv4','gT1sFlr1fuesTqGK');
 
 INSERT INTO SUGGESTION (NAME,DESCRIPTION,STATUS,CREATION_DATE,AUTHOR) VALUES
-('Cups!!!', 'I received lost of cups on different events! I''m ready to share them!', 'OPEN', '2020-11-14 16:30:00+03', '1'),
-('Horseman''s book', 'I became a Python programmer. I don''t need it anymore.', 'CANCELED', '2020-11-12 15:40:00+03', '5'),
-('Grater', 'The best grated in the world for 100 rubles!', 'OPEN', '2020-11-12 19:22:37+03', '7'),
-('Hair dryer', 'I made a short haircut and I want to sell my hair dryer', 'OPEN', '2020-11-09 21:49:33+03', '11'),
-('Charging for Samsung', 'I buy a new Iphone. Now I''m ready to share with you my charging for Samsung', 'RESOLVED', '2020-10-29 08:57:08+03', '14'),
-('Programming tutor', 'I''m ready to help you with Java labs. Write me for details', 'OPEN', '2020-11-07 13:52:31+03', '23'),
-('Cleaning', 'I''m ready to help you with cleaning in your rooms', 'OPEN', '2020-11-13 17:41:55+03', '38');
+('Раздам кружки', 'Получил кучу кружек на разных мероприятиях и готов поделиться ими с вами!', 'OPEN', '2020-11-14 16:30:00+03', '1'),
+('Книга Хорсмана по Java', 'Теперь я питонист и больше не нуждаютсь в данной книге', 'CANCELED', '2020-11-12 15:40:00+03', '5'),
+('Терка', 'Лучшая терка в мире за 100 рублей!', 'OPEN', '2020-11-12 19:22:37+03', '7'),
+('Продам фен', 'Теперь я хожу с короткой прической, так что я хочу продать свой фен', 'OPEN', '2020-11-09 21:49:33+03', '11'),
+('Зарадяка для Samsung', 'Поздравьте, купил новенький Iphone, поэтому зарядка от Samsung мне не очень то и нужна	', 'RESOLVED', '2020-10-29 08:57:08+03', '14'),
+('Репетитор по программированию', 'Готов помочь вам с лабами по Java. Детали в ЛС', 'OPEN', '2020-11-07 13:52:31+03', '23'),
+('Уборка', 'Готов помочь вам с уборкой за скромную плату', 'OPEN', '2020-11-13 17:41:55+03', '38');
 
-INSERT INTO SERVICE (NAME,USER_ID) VALUES
-('Programming tutor', '23'),
-('Cleaning', '38'),
-('Cooking of borscht', '45'),
-('Help with shelfs', '17');
+INSERT INTO SERVICE (NAME,DESCRIPTION,USER_ID) VALUES
+('Репетиторство','Помощь с ЛР по Java: Java SE, Java EE, Spring', '23'),
+('Уборка','Уборка в комнатах', '38'),
+('Приготовление борщеца','Приготовление борща из ингредиентов заказчика', '45'),
+('Помочь с прибитием гвоздей','Помощь с прибитием гвоздей + помощь с вешанием полок', '17');
 
 --TODO SERVICE_OFFER
 
