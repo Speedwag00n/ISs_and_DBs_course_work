@@ -75,7 +75,7 @@ INSERT INTO OBJECT (NAME, DESCRIPTION, OBJECT_STATE, USER_ID) VALUES -- TODO з�
 ('Тазик', 'Синий', 'IN_STOCK', '24'),
 ('Кружка с котиком', 'Очень милый черный котик на кружке!', 'IN_STOCK', '1'),
 ('Java Библиотека Профессионала', 'Топовая книга по Java SE', 'IN_STOCK', '1'),
-('Фнг Philips', 'Почти как из магазина!', 'IN_STOCK', '1'),
+('Фег Philips', 'Почти как из магазина!', 'IN_STOCK', '1'),
 ('Зарядка для Samsung', '', 'IN_STOCK', '1');
 
 INSERT INTO OFFER (NAME, DESCRIPTION, STATUS, CREATION_DATE, AUTHOR) VALUES
@@ -111,7 +111,8 @@ INSERT INTO CATEGORY (NAME, DESCRIPTION) VALUES
 ('ГИГИЕНА','БУДЬ ЧИСТЫМ'),
 ('УЧЕБА','СТАНЬ УМНЕНЬКИМ'),
 ('ДЛЯ ДУШИ','САМАЯ ДУШЕВНАЯ КАТЕГОРИЯ'),
-('РЕМОНТ','КРИВОРУКИМ ТУТ НЕ МЕСТО');
+('РЕМОНТ','КРИВОРУКИМ ТУТ НЕ МЕСТО'),
+('МЕДИКАМЕНТЫ','НЕ БОЛЕЙТЕ!');
 
 INSERT INTO REQUEST (NAME, CONTENT, AUTHOR) VALUES
 ('Дам вам доску', 'Есть деревянная доска для вас', 26),
@@ -148,7 +149,18 @@ INSERT INTO SUGGESTION_REQUEST (REQUEST, SUGGESTION) VALUES
 
 --TODO SUGGESTION_COMMENT
 
---TODO CATEGORY_OF_OBJECT
+INSERT INTO CATEGORY_OF_OBJECT (OBJECT_ID, CATEGORY_ID) VALUES
+('1','8'),
+('2','1'),
+('3','7'),
+('4','2'),
+('5','1'),
+('6','9'),
+('7','7'),
+('8','1'),
+('9','6'),
+('10','2'),
+('11','2');
 
 INSERT INTO CATEGORY_OF_SERVICE (SERVICE_ID, CATEGORY_ID) VALUES
 ('1','6'),
