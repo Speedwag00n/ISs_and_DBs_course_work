@@ -57,7 +57,7 @@ DECLARE
                        FROM OFFER
                        WHERE ID = NEW.OFFER);
 BEGIN
-    IF STATE == 'SHARED' OR STATUS != 'OPEN' THEN
+    IF STATE = 'SHARED' OR STATUS != 'OPEN' THEN
         RETURN NULL;
     END IF;
     RETURN NEW;
