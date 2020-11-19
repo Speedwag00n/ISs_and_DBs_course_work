@@ -26,7 +26,7 @@ INSERT INTO "USER" (NAME,SURNAME,EMAIL,DORMITORY,TELEPHONE,PASSWORD,PASSWORD_SAL
 ('Farrah','Guzman','interdum@velturpisAliquam.com','3','+79212345678','WD5y1AQX1ZOIrpF1v6PFtdKZh2ssqlH0EcWMUze29BMXpGB82o8do0LudHBcW1AGegwyRDudGJ8XgBHyEdsw1zFTcvTQ8sruS9TQlFVECRcJOS6S4SWJnAh9mtC85kac','57rxY9QnTeKJNkNk'),
 ('Maxwell','Sanders','massa.Quisque@FuscefeugiatLorem.net','3','+79212345678','wPl99JJ4d9CCE3cp43QXPPmJIjMO6LW5W4LfujfdUbj7HJfldugwKJFdzhhaFNCTub6l8B6fbJaMH7ehnhhXyQDNZM3gk6T9EID8c6apEhSGdK6NVlMZ1qy3JvQ2rUbT','yBAawdx0tOhJVk6x'),
 ('Ella','Lawrence','elementum.at@libero.net','3','+79212345678','hY1yy8y3Ve5XpQslcrY4x1EGPe2SHNbIO5lc0rAAGBthfu9EWiABXHbEdp9YDU04BQn1AzsT2P0FI9E6rwqzUq9K1pNYSx5lyJL5mkM1kiUMS1OsYyufW5yIeIg7oecp','QmqdnBjknOvZCpsF'),
-('Kenneth','Kaufman','lectus@rutrum.net','3','+79212345678','h0KCRWCiRqz746abviRHf3obBJfda0ShclTjNcaK0VJiK5DEE2O4n3oc6G7OjciT5LYb3ivHiuMOGyRi7l4eSvUudBNB9Cltax6qJipMyKw90uVDoZO51FPInu4DwaAh','VifX0JRaF0mcSMaa'),
+('Kenneth','Kaufman','lectus@rutrum.net','2','+79212345678','h0KCRWCiRqz746abviRHf3obBJfda0ShclTjNcaK0VJiK5DEE2O4n3oc6G7OjciT5LYb3ivHiuMOGyRi7l4eSvUudBNB9Cltax6qJipMyKw90uVDoZO51FPInu4DwaAh','VifX0JRaF0mcSMaa'),
 ('Mona','Carpenter','iaculis.lacus@neque.org','3','+79212345678','kspagy1wlQ4NsW6ubewq1sHapcH1E3GBMHTeoLi7kacLsJqX6Pc4uAaIAnN2g0PZrxMNBmy8riwdE6r34Qdl65XWyhuJ2eXA3m6ZQnPqGHb6AmGsXjRUvsgzO3xRfmtu','KSYCcYf97jXXig9m'),
 ('Karly','Powers','eget@Maecenasiaculis.ca','3','+79212345678','ZQ6g6qaEgKxDsAvja7Dtw3NRB4K7Ho2jAZDjO4uRefpT2ggiRVO898gBgTnLBLDWRGDCYlhPEjh1tiyVP0uaUmGilzdczArmzpKZVtjxrGUaq8tL5qCGJ0Vv8dle4JDM','5vvveRSpIKXBjdR9'),
 ('Troy','Sheppard','eu.accumsan.sed@milacinia.com','4','+79212345678','kDGzljknymzQDZaq6bmnmv0Ab1qCfuHTN7XohOPU36y8GadUiEEp2n984VeA1OV39ml0Sqkzath5rAv0x6yHbhiILWF4OiNZy90s8uwGTpn2gC3xn626ktuSz5QAqIBA','Tt1inlAvcsPFfgDg'),
@@ -70,7 +70,7 @@ INSERT INTO OBJECT (NAME, DESCRIPTION, OBJECT_STATE, USER_ID) VALUES -- TODO з�
 ('Терка', 'На каждой стороне дырочки разного размера', 'IN_STOCK', 2),
 ('Гладильная доска', 'Маленькая, но очень удобная', 'SHARED', 3),
 ('Зарядка TYPE-C', 'Заряжает!', 'SHARED',  4),
-('Доска для резки', 'деревянная', 'IN_STOCK', 24),
+('Доска для резки', 'деревянная', 'IN_STOCK', 4),
 ('Парацетомол', 'Еще советские, проверенные временем', 'SHARED', '14'),
 ('Тазик', 'Синий', 'IN_STOCK', '24'),
 ('Кружка с котиком', 'Очень милый черный котик на кружке!', 'IN_STOCK', '1'),
@@ -101,7 +101,7 @@ INSERT INTO SERVICE (NAME,DESCRIPTION,USER_ID) VALUES
 ('Репетиторство','Помощь с ЛР по Java: Java SE, Java EE, Spring', '23'),
 ('Уборка','Уборка в комнатах', '38'),
 ('Приготовление борщеца','Приготовление борща из ингредиентов заказчика', '45'),
-('Помочь с прибитием гвоздей','Помощь с прибитием гвоздей + помощь с вешанием полок', '17');
+('Помочь с прибитием гвоздей','Помощь с прибитием гвоздей + помощь с вешанием полок', '8');
 
 INSERT INTO CATEGORY (NAME, DESCRIPTION) VALUES
 ('ДЛЯ КУХНИ','ВСЕ ДЛЯ КУХНИ'),
@@ -115,7 +115,7 @@ INSERT INTO CATEGORY (NAME, DESCRIPTION) VALUES
 ('МЕДИКАМЕНТЫ','НЕ БОЛЕЙТЕ!');
 
 INSERT INTO REQUEST (NAME, CONTENT, AUTHOR) VALUES
-('Дам вам доску', 'Есть деревянная доска для вас', 26),
+('Дам вам доску', 'Есть деревянная доска для вас', 4),
 ('Прикручу!', 'Сильный мужчина готов вам помочь', 8),
 ('Куплю фен', 'А я как раз отрастил волосы))))))))))))', 5),
 ('Помогите закрыть ПИП', 'Цопа меня отчислит, спасите от армии!', 11);
@@ -141,7 +141,7 @@ INSERT INTO SUGGESTION_REQUEST (REQUEST, SUGGESTION) VALUES
 (3, 4),
 (4, 6);
 
-INSERT INTO COMMENT (CONTENT, CREATION_DATE, AUTHOR, PARENT_COMMENT) VALUES
+INSERT INTO COMMENT (OBJECT_OFFER_REQUEST) VALUES
 ('Порежьте на столе, в чем проблема', '2020-11-04 17:33:22+03', 4, NULL),
 ('Жалко(','2020-11-04 13:24:21+03', 6, 1),
 ('Какая хорошая книга','2020-11-04 16:04:21+03', 13, NULL),
