@@ -241,25 +241,43 @@ CREATE OR REPLACE FUNCTION FIND_RELATED_SERVICE(USER_ID_1 INTEGER, USER_ID_2 INT
                 NAME_CONSUMER    VARCHAR(32),
                 SURNAME_CONSUMER VARCHAR(32),
                 SUGGESTION_NAME  VARCHAR(32),
-                AGREED_TIME      TIMESTAMP WITH TIME ZONE
+                AGREED_TIME      TIMESTAMP WITH TIME ZONE,
+                CROSSES          bool
             )
 AS
 $$
 BEGIN
-    RETURN QUERY SELECT suggestion.author,
-                        (SELECT NAME FROM "USER" WHERE ID=SUGGESTION.AUTHOR),
-                        (SELECT surname FROM "USER" WHERE ID=SUGGESTION.AUTHOR),
-                        REQUEST.author,
-                        (SELECT NAME FROM "USER" WHERE ID=REQUEST.author),
-                        (SELECT surname FROM "USER" WHERE ID=REQUEST.author),
+    RETURN QUERY SELECT suggestion.author AS PRODUCER_ID,
+                        (SELECT NAME FROM "USER" WHERE ID = SUGGESTION.AUTHOR),
+                        (SELECT surname FROM "USER" WHERE ID = SUGGESTION.AUTHOR),
+                        REQUEST.author    AS CONSUMER_ID,
+                        (SELECT NAME FROM "USER" WHERE ID = REQUEST.author),
+                        (SELECT surname FROM "USER" WHERE ID = REQUEST.author),
                         SUGGESTION.NAME,
-                        REQUEST.agreed_time
+                        REQUEST.agreed_time,
+                        (SELECT IS_TIME_CROSSES(REQUEST.agreed_time, suggestion.author, REQUEST.author))
                  FROM "USER"
                           JOIN request ON "USER".id = request.author
                           JOIN suggestion_request ON request.id = suggestion_request.request
                           JOIN suggestion ON suggestion_request.suggestion = suggestion.id
                  WHERE ("USER".ID = USER_ID_1 OR "USER".ID = USER_ID_2)
-                   AND (REQUEST.author = USER_ID_1 OR REQUEST.author = USER_ID_1)
+                   AND (REQUEST.author = USER_ID_1 OR REQUEST.author = USER_ID_2)
                    AND (SUGGESTION.author = USER_ID_1 OR SUGGESTION.author = USER_ID_2);
+END;
+$$ LANGUAGE PLPGSQL;
+
+CREATE OR REPLACE FUNCTION IS_TIME_CROSSES(agreed_time TIMESTAMP WITH TIME ZONE, PRODUCER_ID INTEGER,
+                                      CONSUMER_ID INTEGER) RETURNS BOOLEAN
+AS
+$$
+BEGIN
+    RETURN agreed_time IN (SELECT REQUEST.agreed_time
+                           FROM "USER"
+                                    JOIN request ON "USER".id = request.author
+                                    JOIN suggestion_request ON request.id = suggestion_request.request
+                                    JOIN suggestion ON suggestion_request.suggestion = suggestion.id
+                           WHERE ("USER".ID = PRODUCER_ID OR "USER".ID = CONSUMER_ID)
+                             AND (REQUEST.author = PRODUCER_ID)
+                             AND (SUGGESTION.author = CONSUMER_ID));
 END;
 $$ LANGUAGE PLPGSQL;
