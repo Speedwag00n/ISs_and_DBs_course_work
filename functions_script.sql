@@ -132,72 +132,189 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION GET_OFFERS_IN_DORMITORY(DORMITORY_ID INTEGER)
-    RETURNS TABLE(
-    ID INTEGER,
-    NAME VARCHAR(32),
-    DESCRIPTION VARCHAR(256),
-    STATUS "STATUS",
-    CREATION_DATE TIMESTAMP WITH TIME ZONE,
-    AUTHOR INTEGER) AS
+    RETURNS TABLE
+            (
+                ID            INTEGER,
+                NAME          VARCHAR(32),
+                DESCRIPTION   VARCHAR(256),
+                STATUS        "STATUS",
+                CREATION_DATE TIMESTAMP WITH TIME ZONE,
+                AUTHOR        INTEGER
+            )
+AS
 $$
 BEGIN
-    RETURN QUERY SELECT 
-    OFFER.ID, OFFER.NAME, OFFER.DESCRIPTION, OFFER.STATUS, OFFER.CREATION_DATE, OFFER.AUTHOR
-    FROM "USER"
-	JOIN DORMITORY ON "USER".DORMITORY = DORMITORY.ID
-	JOIN OFFER ON OFFER.AUTHOR = "USER".ID WHERE DORMITORY.ID = DORMITORY_ID;
+    RETURN QUERY SELECT OFFER.ID,
+                        OFFER.NAME,
+                        OFFER.DESCRIPTION,
+                        OFFER.STATUS,
+                        OFFER.CREATION_DATE,
+                        OFFER.AUTHOR
+                 FROM "USER"
+                          JOIN DORMITORY ON "USER".DORMITORY = DORMITORY.ID
+                          JOIN OFFER ON OFFER.AUTHOR = "USER".ID
+                 WHERE DORMITORY.ID = DORMITORY_ID;
 END;
 $$ LANGUAGE PLPGSQL;
 
 
 
 CREATE OR REPLACE FUNCTION GET_SERVICE_SUGGESTIONS_IN_DORMITORY(DORMITORY_ID INTEGER)
-    RETURNS TABLE(
-    SUGGESTION_ID INTEGER,
-    SUGGESTION_NAME VARCHAR(32),
-    SUGGESTION_DESCRIPTION VARCHAR(256),
-    STATUS "STATUS",
-    CREATION_DATE TIMESTAMP WITH TIME ZONE,
-    AUTHOR INTEGER,
-    SERVICE_ID INTEGER,
-	SERVICE_NAME VARCHAR(32),
-    SERVICE_DESCRIPTION VARCHAR(256)) AS
+    RETURNS TABLE
+            (
+                SUGGESTION_ID          INTEGER,
+                SUGGESTION_NAME        VARCHAR(32),
+                SUGGESTION_DESCRIPTION VARCHAR(256),
+                STATUS                 "STATUS",
+                CREATION_DATE          TIMESTAMP WITH TIME ZONE,
+                AUTHOR                 INTEGER,
+                SERVICE_ID             INTEGER,
+                SERVICE_NAME           VARCHAR(32),
+                SERVICE_DESCRIPTION    VARCHAR(256)
+            )
+AS
 $$
 BEGIN
-    RETURN QUERY SELECT 
-    SUGGESTION.ID as SUGGESTION_ID, SUGGESTION.NAME as SUGGESTION_NAME, SUGGESTION.DESCRIPTION as SUGGESTION_DESCRIPTION, SUGGESTION.STATUS, SUGGESTION.CREATION_DATE, 
-	SUGGESTION.AUTHOR, SERVICE.ID as SERVICE_ID, SERVICE.NAME as SERVICE_NAME, SERVICE.DESCRIPTION as SERVICE_DESCRIPTION
-    FROM "USER"
-	JOIN DORMITORY ON "USER".DORMITORY = DORMITORY.ID
-	JOIN SUGGESTION ON SUGGESTION.AUTHOR = "USER".ID
-	JOIN SERVICE_SUGGESTION ON SERVICE_SUGGESTION.SUGGESTION = SUGGESTION.ID
-	JOIN SERVICE ON SERVICE_SUGGESTION.SERVICE = SERVICE.ID WHERE DORMITORY.ID = DORMITORY_ID;
+    RETURN QUERY SELECT SUGGESTION.ID          as SUGGESTION_ID,
+                        SUGGESTION.NAME        as SUGGESTION_NAME,
+                        SUGGESTION.DESCRIPTION as SUGGESTION_DESCRIPTION,
+                        SUGGESTION.STATUS,
+                        SUGGESTION.CREATION_DATE,
+                        SUGGESTION.AUTHOR,
+                        SERVICE.ID             as SERVICE_ID,
+                        SERVICE.NAME           as SERVICE_NAME,
+                        SERVICE.DESCRIPTION    as SERVICE_DESCRIPTION
+                 FROM "USER"
+                          JOIN DORMITORY ON "USER".DORMITORY = DORMITORY.ID
+                          JOIN SUGGESTION ON SUGGESTION.AUTHOR = "USER".ID
+                          JOIN SERVICE_SUGGESTION ON SERVICE_SUGGESTION.SUGGESTION = SUGGESTION.ID
+                          JOIN SERVICE ON SERVICE_SUGGESTION.SERVICE = SERVICE.ID
+                 WHERE DORMITORY.ID = DORMITORY_ID;
 END;
 $$ LANGUAGE PLPGSQL;
 
 
 
 CREATE OR REPLACE FUNCTION GET_OBJECT_SUGGESTIONS_IN_DORMITORY(DORMITORY_ID INTEGER)
-    RETURNS TABLE(
-    SUGGESTION_ID INTEGER,
-    SUGGESTION_NAME VARCHAR(32),
-    SUGGESTION_DESCRIPTION VARCHAR(256),
-    STATUS "STATUS",
-    CREATION_DATE TIMESTAMP WITH TIME ZONE,
-    AUTHOR INTEGER,
-    OBJECT_ID INTEGER,
-	OBJECT_NAME VARCHAR(32),
-    OBJECT_DESCRIPTION VARCHAR(256),
-	OBJECT_STATE "OBJECT_STATE") AS
+    RETURNS TABLE
+            (
+                SUGGESTION_ID          INTEGER,
+                SUGGESTION_NAME        VARCHAR(32),
+                SUGGESTION_DESCRIPTION VARCHAR(256),
+                STATUS                 "STATUS",
+                CREATION_DATE          TIMESTAMP WITH TIME ZONE,
+                AUTHOR                 INTEGER,
+                OBJECT_ID              INTEGER,
+                OBJECT_NAME            VARCHAR(32),
+                OBJECT_DESCRIPTION     VARCHAR(256),
+                OBJECT_STATE           "OBJECT_STATE"
+            )
+AS
 $$
 BEGIN
-    RETURN QUERY SELECT 
-    SUGGESTION.ID as SUGGESTION_ID, SUGGESTION.NAME as SUGGESTION_NAME, SUGGESTION.DESCRIPTION as SUGGESTION_DESCRIPTION, SUGGESTION.STATUS, SUGGESTION.CREATION_DATE, 
-	SUGGESTION.AUTHOR, OBJECT.ID as OBJECT_ID, OBJECT.NAME as OBJECT_NAME, OBJECT.DESCRIPTION as OBJECT_DESCRIPTION, OBJECT.OBJECT_STATE as OBJECT_STATE
-    FROM "USER"
-	JOIN DORMITORY ON "USER".DORMITORY = DORMITORY.ID
-	JOIN SUGGESTION ON SUGGESTION.AUTHOR = "USER".ID
-	JOIN OBJECT_SUGGESTION ON OBJECT_SUGGESTION.SUGGESTION = SUGGESTION.ID
-	JOIN OBJECT ON OBJECT_SUGGESTION.OBJECT = OBJECT.ID WHERE DORMITORY.ID = DORMITORY_ID;
+    RETURN QUERY SELECT SUGGESTION.ID          as SUGGESTION_ID,
+                        SUGGESTION.NAME        as SUGGESTION_NAME,
+                        SUGGESTION.DESCRIPTION as SUGGESTION_DESCRIPTION,
+                        SUGGESTION.STATUS,
+                        SUGGESTION.CREATION_DATE,
+                        SUGGESTION.AUTHOR,
+                        OBJECT.ID              as OBJECT_ID,
+                        OBJECT.NAME            as OBJECT_NAME,
+                        OBJECT.DESCRIPTION     as OBJECT_DESCRIPTION,
+                        OBJECT.OBJECT_STATE    as OBJECT_STATE
+                 FROM "USER"
+                          JOIN DORMITORY ON "USER".DORMITORY = DORMITORY.ID
+                          JOIN SUGGESTION ON SUGGESTION.AUTHOR = "USER".ID
+                          JOIN OBJECT_SUGGESTION ON OBJECT_SUGGESTION.SUGGESTION = SUGGESTION.ID
+                          JOIN OBJECT ON OBJECT_SUGGESTION.OBJECT = OBJECT.ID
+                 WHERE DORMITORY.ID = DORMITORY_ID;
+END;
+$$ LANGUAGE PLPGSQL;
+
+--ADDITIONAL TASK
+
+CREATE OR REPLACE FUNCTION IS_TIME_CROSSES(agreed_time TIMESTAMP WITH TIME ZONE, PRODUCER_ID INTEGER,
+                                           CONSUMER_ID INTEGER) RETURNS BOOLEAN
+AS
+$$
+BEGIN
+    RETURN agreed_time IN (SELECT REQUEST.agreed_time
+                           FROM "USER"
+                                    JOIN request ON "USER".id = request.author
+                                    JOIN suggestion_request ON request.id = suggestion_request.request
+                                    JOIN suggestion ON suggestion_request.suggestion = suggestion.id
+                           WHERE ("USER".ID = PRODUCER_ID OR "USER".ID = CONSUMER_ID)
+                             AND (REQUEST.author = PRODUCER_ID)
+                             AND (SUGGESTION.author = CONSUMER_ID));
+END;
+$$ LANGUAGE PLPGSQL;
+
+CREATE OR REPLACE FUNCTION FIND_RELATED_SERVICE_FOR_TWO_USERS(USER_ID_1 INTEGER, USER_ID_2 INTEGER)
+    RETURNS TABLE
+            (
+                PRODUCER_ID      INTEGER,
+                NAME_PRODUCER    VARCHAR(32),
+                SURNAME_PRODUCER VARCHAR(32),
+                CONSUMER_ID      INTEGER,
+                NAME_CONSUMER    VARCHAR(32),
+                SURNAME_CONSUMER VARCHAR(32),
+                SUGGESTION_NAME  VARCHAR(32),
+                AGREED_TIME      TIMESTAMP WITH TIME ZONE,
+                CROSSES          bool
+            )
+AS
+$$
+BEGIN
+    RETURN QUERY SELECT suggestion.author,
+                        (SELECT NAME FROM "USER" WHERE ID = SUGGESTION.AUTHOR),
+                        (SELECT surname FROM "USER" WHERE ID = SUGGESTION.AUTHOR),
+                        REQUEST.author,
+                        (SELECT NAME FROM "USER" WHERE ID = REQUEST.author),
+                        (SELECT surname FROM "USER" WHERE ID = REQUEST.author),
+                        SUGGESTION.NAME,
+                        REQUEST.agreed_time,
+                        (SELECT IS_TIME_CROSSES(REQUEST.agreed_time, suggestion.author, REQUEST.author))
+                 FROM "USER"
+                          JOIN request ON "USER".id = request.author
+                          JOIN suggestion_request ON request.id = suggestion_request.request
+                          JOIN suggestion ON suggestion_request.suggestion = suggestion.id
+                 WHERE ("USER".ID = USER_ID_1 OR "USER".ID = USER_ID_2)
+                   AND (REQUEST.author = USER_ID_1 OR REQUEST.author = USER_ID_2)
+                   AND (SUGGESTION.author = USER_ID_1 OR SUGGESTION.author = USER_ID_2);
+END;
+$$ LANGUAGE PLPGSQL;
+
+CREATE OR REPLACE FUNCTION FIND_RELATED_SERVICE_FOR_THREE_USERS(USER_ID_1 INTEGER, USER_ID_2 INTEGER, USER_ID_3 INTEGER)
+    RETURNS TABLE
+            (
+                PRODUCER_ID      INTEGER,
+                NAME_PRODUCER    VARCHAR(32),
+                SURNAME_PRODUCER VARCHAR(32),
+                CONSUMER_ID      INTEGER,
+                NAME_CONSUMER    VARCHAR(32),
+                SURNAME_CONSUMER VARCHAR(32),
+                SUGGESTION_NAME  VARCHAR(32),
+                AGREED_TIME      TIMESTAMP WITH TIME ZONE,
+                CROSSES          bool
+            )
+AS
+$$
+BEGIN
+    RETURN QUERY SELECT suggestion.author,
+                        (SELECT NAME FROM "USER" WHERE ID = SUGGESTION.AUTHOR),
+                        (SELECT surname FROM "USER" WHERE ID = SUGGESTION.AUTHOR),
+                        REQUEST.author,
+                        (SELECT NAME FROM "USER" WHERE ID = REQUEST.author),
+                        (SELECT surname FROM "USER" WHERE ID = REQUEST.author),
+                        SUGGESTION.NAME,
+                        REQUEST.agreed_time,
+                        (SELECT IS_TIME_CROSSES(REQUEST.agreed_time, suggestion.author, REQUEST.author))
+                 FROM "USER"
+                          JOIN request ON "USER".id = request.author
+                          JOIN suggestion_request ON request.id = suggestion_request.request
+                          JOIN suggestion ON suggestion_request.suggestion = suggestion.id
+                 WHERE ("USER".ID = USER_ID_1 OR "USER".ID = USER_ID_2 OR "USER".ID = USER_ID_3)
+                   AND (REQUEST.author = USER_ID_1 OR REQUEST.author = USER_ID_2 OR REQUEST.author = USER_ID_3)
+                   AND (SUGGESTION.author = USER_ID_1 OR SUGGESTION.author = USER_ID_2 OR SUGGESTION.author = USER_ID_3);
 END;
 $$ LANGUAGE PLPGSQL;

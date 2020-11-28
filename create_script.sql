@@ -82,10 +82,11 @@ CREATE TABLE CATEGORY
 
 CREATE TABLE REQUEST
 (
-    ID      SERIAL PRIMARY KEY,
-    NAME    VARCHAR(32) CHECK (CHAR_LENGTH(NAME) >= 6)                         NOT NULL,
-    CONTENT VARCHAR(256)                                                       NOT NULL,
-    AUTHOR  INTEGER REFERENCES "USER" (ID) ON UPDATE CASCADE ON DELETE CASCADE NOT NULL
+    ID          SERIAL PRIMARY KEY,
+    NAME        VARCHAR(32) CHECK (CHAR_LENGTH(NAME) >= 6)                         NOT NULL,
+    CONTENT     VARCHAR(256)                                                       NOT NULL,
+    AUTHOR      INTEGER REFERENCES "USER" (ID) ON UPDATE CASCADE ON DELETE CASCADE NOT NULL,
+    AGREED_TIME TIMESTAMP WITH TIME ZONE                                           NOT NULL
 );
 
 CREATE TABLE CATEGORY_OF_OBJECT
