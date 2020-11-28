@@ -1,0 +1,10 @@
+body{
+    background: #FFFFFF;
+    background: radial-gradient(#9BFFFF, #FFFFFF);
+    background: -webkit-radial-gradient(top, #9BFFFF, #FFFFFF);
+    background: -moz-radial-gradient(top, #9BFFFF, #FFFFFF);
+    background: -ms-radial-gradient(top, #9BFFFF, #FFFFFF);
+    background: -o-radial-gradient(top, #9BFFFF, #FFFFFF);
+    margin: 0;
+    background-attachment: fixed;
+}
