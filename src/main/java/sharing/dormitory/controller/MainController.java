@@ -1,4 +1,4 @@
-package ilia.nemankov.controller;
+package sharing.dormitory.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
