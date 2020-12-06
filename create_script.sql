@@ -13,7 +13,7 @@ CREATE TABLE DORMITORY
 CREATE TABLE USERS
 (
     ID            SERIAL PRIMARY KEY,
-    USERNAME      VARCHAR(32)                                     NOT NULL UNIQUE,
+    USERNAME      VARCHAR(32) CHECK (CHAR_LENGTH(USERNAME) >= 5)  NOT NULL UNIQUE,
     NAME          VARCHAR(32)                                     NOT NULL,
     SURNAME       VARCHAR(32)                                     NOT NULL,
     EMAIL         VARCHAR(64)                                     NOT NULL,
