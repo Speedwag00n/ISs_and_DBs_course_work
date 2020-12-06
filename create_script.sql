@@ -19,7 +19,6 @@ CREATE TABLE USERS
     EMAIL         VARCHAR(64)                                     NOT NULL,
     TELEPHONE     VARCHAR(12) CHECK (CHAR_LENGTH(TELEPHONE) = 12) NOT NULL,
     PASSWORD      VARCHAR(128)                                    NOT NULL,
-    PASSWORD_SALT VARCHAR(16)                                     NOT NULL,
     DORMITORY     INTEGER                                         REFERENCES DORMITORY (ID) ON UPDATE CASCADE ON DELETE SET NULL,
     RATING        REAL CHECK (RATING >= 0 AND RATING <= 5),
     IMAGE         BYTEA,

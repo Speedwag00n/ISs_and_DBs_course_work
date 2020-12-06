@@ -42,9 +42,6 @@ public class User {
     @Column(name = "PASSWORD", nullable = false)
     private String password;
 
-    @Column(name = "PASSWORD_SALT", nullable = false)
-    private String passwordSalt = "1";
-
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="DORMITORY", referencedColumnName="id")
     private Dormitory dormitory;

@@ -10,7 +10,7 @@
                 <i class="fa fa-user"></i> Create new account
             </div>
             <div class="card-block" style="padding: 24px;">
-                <form name="registration" th:action="@{/register}" th:object="${user}" method="post" onsubmit="validateRegistrationForm(this); return false;">
+                <form name="registration" th:action="@{/register}" th:object="${user}" method="post" onsubmit="return validateRegistrationForm(this);">
                     <fieldset>
                         <div class="form-group">
                             <label for="username">Username</label>
@@ -21,14 +21,14 @@
 
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input type="text" class="form-control" id="password" name="password"
+                            <input type="password" class="form-control" id="password" name="password"
                                    placeholder="Password" th:field="*{password}">
                             <span id="warning-container-password" class="warning-container"></span>
                         </div>
 
                         <div class="form-group">
                             <label for="password2">Repeat password</label>
-                            <input type="text" class="form-control" id="password2" name="password2"
+                            <input type="password" class="form-control" id="password2" name="password2"
                                    placeholder="Repeat password">
                             <span id="warning-container-password2" class="warning-container"></span>
                         </div>

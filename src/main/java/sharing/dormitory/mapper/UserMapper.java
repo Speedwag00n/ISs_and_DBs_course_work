@@ -1,6 +1,7 @@
 package sharing.dormitory.mapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import sharing.dormitory.db.model.Dormitory;
 import sharing.dormitory.db.model.User;
@@ -11,10 +12,12 @@ import sharing.dormitory.dto.UserDTO;
 public class UserMapper {
 
     private DormitoryRepository dormitoryRepository;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserMapper(DormitoryRepository dormitoryRepository) {
+    public UserMapper(DormitoryRepository dormitoryRepository, PasswordEncoder passwordEncoder) {
         this.dormitoryRepository = dormitoryRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public User dtoToEntity(UserDTO dto) {
@@ -26,7 +29,7 @@ public class UserMapper {
         entity.setSurname(dto.getSurname());
         entity.setEmail(dto.getEmail());
         entity.setTelephone(dto.getTelephone());
-        entity.setPassword(dto.getPassword());
+        entity.setPassword(passwordEncoder.encode(dto.getPassword()));
         Dormitory dormitoryEntity = dormitoryRepository.findById(dto.getDormitory()).get();
         entity.setDormitory(dormitoryEntity);
         entity.setRating(dto.getRating());
