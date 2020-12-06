@@ -1,6 +1,7 @@
 package sharing.dormitory.db.model;
 
 import lombok.Data;
+import org.hibernate.annotations.Type;
 import sharing.dormitory.db.enm.ObjectState;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ public class Object {
     Integer id;
     String name;
     String description;
+    @Type(type="org.hibernate.type.BinaryType")
     @Lob
     private Byte[] image;
     @Enumerated(EnumType.STRING)

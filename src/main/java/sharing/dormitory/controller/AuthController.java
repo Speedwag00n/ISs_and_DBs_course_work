@@ -1,30 +1,23 @@
 package sharing.dormitory.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import sharing.dormitory.db.repository.DormitoryRepository;
 import sharing.dormitory.dto.UserDTO;
 import sharing.dormitory.service.DormitoryService;
 import sharing.dormitory.service.UserService;
 
+@AllArgsConstructor
 @Controller
 @RequestMapping("/")
 public class AuthController {
 
-    private DormitoryService dormitoryService;
-    private UserService userService;
-
-    @Autowired
-    public AuthController(DormitoryService dormitoryService, UserService userService) {
-        this.dormitoryService = dormitoryService;
-        this.userService = userService;
-    }
+    private final DormitoryService dormitoryService;
+    private final UserService userService;
 
     @GetMapping("register")
     public String openRegisterPage(Model model) {

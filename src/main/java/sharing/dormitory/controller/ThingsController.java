@@ -3,13 +3,10 @@ package sharing.dormitory.controller;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import sharing.dormitory.db.model.Object;
 import sharing.dormitory.db.model.Service;
-import sharing.dormitory.service.ThingService;
+import sharing.dormitory.service.ThingsService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -18,14 +15,17 @@ import java.util.List;
 @Controller
 @AllArgsConstructor
 public class ThingsController {
-    private final ThingService thingService;
+    private final ThingsService thingsService;
 
     @GetMapping("/things")
     public String things(@Valid @RequestParam(name="id") Integer id, Model model) {
-        List<Object> objects = thingService.getUserObject(id);
-        List<Service> services = thingService.getUserService(id);
+        model.addAttribute("id", id);
+        List<Object> objects = thingsService.getUserObject(id);
         model.addAttribute("objects", objects);
+        List<Service> services = thingsService.getUserService(id);
         model.addAttribute("services", services);
+        model.addAttribute("newObject", new Object());
+        model.addAttribute("newService", new Service());
         return "things";
     }
 
@@ -34,4 +34,9 @@ public class ThingsController {
         return things(id, model);
     }
 
+    @PostMapping("/things/object/create")
+    public String createObject(@ModelAttribute Object object, Model model) {
+        thingsService.createObject(object, 1);
+        return "things";
+    }
 }

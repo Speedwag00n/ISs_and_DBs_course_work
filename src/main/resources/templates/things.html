@@ -8,7 +8,9 @@
     <script th:src="@{/js/jquery.min.js}"></script>
 </head>
 <body>
-<h3 style="text-align: center">Ваши Объекты</h3>
+<h3 th:if="${#lists.isEmpty(objects)}">У вас еще нет добавленных объектов</h3>
+<span th:unless="${#lists.isEmpty(objects)}">
+<h3>Ваши Объекты</h3>
 <table>
     <tbody>
     <tr th:each="object: ${objects}">
@@ -16,14 +18,17 @@
         <td th:text="${object.description}"></td>
         <td th:text="${object.image}"></td>
         <td><span th:if="${object.state} == 'IN_STOCK'" th:text="In stock"></span>
-            <span th:unless="${object.state} == 'SHARED'" th:text="Shared"></span></td>
+            <span th:text="${object.state}"></span>
+            <span th:if="${object.state} == 'SHARED'" th:text="Shared"></span></td>
         <td style="font-size: 20pt">
             <span>✠</span>
         </td>
     </tr>
     </tbody>
 </table>
-
+</span>
+<h3 th:if="${#lists.isEmpty(services)}">У вас еще нет добавленных услуг</h3>
+<span th:unless="${#lists.isEmpty(services)}">
 <h3 style="text-align: center">Ваши услуги</h3>
 <table style="margin: auto">
     <tbody>
@@ -37,5 +42,22 @@
     </tr>
     </tbody>
 </table>
+</span>
+<h3>Добавление нового объекта</h3>
+<form action="#" th:action="@{/things/object/create}" th:object="${newObject}" method="post">
+    <table>
+        <tr>
+            <td>Название</td>
+            <td><input type="text" th:field="*{name}"/></td>
+        </tr>
+        <tr>
+            <td>Описание</td>
+            <td><input type="text" th:field="*{description}"/></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Submit"/></td>
+        </tr>
+    </table>
+</form>
 </body>
 </html>
