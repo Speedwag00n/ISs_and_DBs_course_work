@@ -123,10 +123,10 @@ DECLARE
                                      FROM SUGGESTION
                                      WHERE ID = NEW.SUGGESTION);
     REQUEST_DORMITORY    INTEGER := (SELECT DORMITORY
-                                     FROM "USER"
+                                     FROM USERS
                                      WHERE ID = REQUEST_AUTHOR);
     SUGGESTION_DORMITORY INTEGER := (SELECT DORMITORY
-                                     FROM "USER"
+                                     FROM USERS
                                      WHERE ID = SUGGESTION_AUTHOR);
 BEGIN
     IF REQUEST_DORMITORY != SUGGESTION_DORMITORY THEN
@@ -153,10 +153,10 @@ DECLARE
                                   FROM OFFER
                                   WHERE ID = NEW.OFFER);
     REQUEST_DORMITORY INTEGER := (SELECT DORMITORY
-                                  FROM "USER"
+                                  FROM USERS
                                   WHERE ID = REQUEST_AUTHOR);
     OFFER_DORMITORY   INTEGER := (SELECT DORMITORY
-                                  FROM "USER"
+                                  FROM USERS
                                   WHERE ID = OFFER_AUTHOR);
 BEGIN
     IF REQUEST_DORMITORY != OFFER_DORMITORY THEN
@@ -183,10 +183,10 @@ DECLARE
                                   FROM OFFER
                                   WHERE ID = NEW.OFFER);
     REQUEST_DORMITORY INTEGER := (SELECT DORMITORY
-                                  FROM "USER"
+                                  FROM USERS
                                   WHERE ID = REQUEST_AUTHOR);
     OFFER_DORMITORY   INTEGER := (SELECT DORMITORY
-                                  FROM "USER"
+                                  FROM USERS
                                   WHERE ID = OFFER_AUTHOR);
 BEGIN
     IF REQUEST_DORMITORY != OFFER_DORMITORY THEN

@@ -150,9 +150,9 @@ BEGIN
                         OFFER.STATUS,
                         OFFER.CREATION_DATE,
                         OFFER.AUTHOR
-                 FROM "USER"
-                          JOIN DORMITORY ON "USER".DORMITORY = DORMITORY.ID
-                          JOIN OFFER ON OFFER.AUTHOR = "USER".ID
+                 FROM USERS
+                          JOIN DORMITORY ON USERS.DORMITORY = DORMITORY.ID
+                          JOIN OFFER ON OFFER.AUTHOR = USERS.ID
                  WHERE DORMITORY.ID = DORMITORY_ID;
 END;
 $$ LANGUAGE PLPGSQL;
@@ -184,9 +184,9 @@ BEGIN
                         SERVICE.ID             as SERVICE_ID,
                         SERVICE.NAME           as SERVICE_NAME,
                         SERVICE.DESCRIPTION    as SERVICE_DESCRIPTION
-                 FROM "USER"
-                          JOIN DORMITORY ON "USER".DORMITORY = DORMITORY.ID
-                          JOIN SUGGESTION ON SUGGESTION.AUTHOR = "USER".ID
+                 FROM USERS
+                          JOIN DORMITORY ON USERS.DORMITORY = DORMITORY.ID
+                          JOIN SUGGESTION ON SUGGESTION.AUTHOR = USERS.ID
                           JOIN SERVICE_SUGGESTION ON SERVICE_SUGGESTION.SUGGESTION = SUGGESTION.ID
                           JOIN SERVICE ON SERVICE_SUGGESTION.SERVICE = SERVICE.ID
                  WHERE DORMITORY.ID = DORMITORY_ID;
@@ -222,9 +222,9 @@ BEGIN
                         OBJECT.NAME            as OBJECT_NAME,
                         OBJECT.DESCRIPTION     as OBJECT_DESCRIPTION,
                         OBJECT.OBJECT_STATE    as OBJECT_STATE
-                 FROM "USER"
-                          JOIN DORMITORY ON "USER".DORMITORY = DORMITORY.ID
-                          JOIN SUGGESTION ON SUGGESTION.AUTHOR = "USER".ID
+                 FROM USERS
+                          JOIN DORMITORY ON USERS.DORMITORY = DORMITORY.ID
+                          JOIN SUGGESTION ON SUGGESTION.AUTHOR = USERS.ID
                           JOIN OBJECT_SUGGESTION ON OBJECT_SUGGESTION.SUGGESTION = SUGGESTION.ID
                           JOIN OBJECT ON OBJECT_SUGGESTION.OBJECT = OBJECT.ID
                  WHERE DORMITORY.ID = DORMITORY_ID;
@@ -239,11 +239,11 @@ AS
 $$
 BEGIN
     RETURN agreed_time IN (SELECT REQUEST.agreed_time
-                           FROM "USER"
-                                    JOIN request ON "USER".id = request.author
+                           FROM USERS
+                                    JOIN request ON USERS.id = request.author
                                     JOIN suggestion_request ON request.id = suggestion_request.request
                                     JOIN suggestion ON suggestion_request.suggestion = suggestion.id
-                           WHERE ("USER".ID = PRODUCER_ID OR "USER".ID = CONSUMER_ID)
+                           WHERE (USERS.ID = PRODUCER_ID OR USERS.ID = CONSUMER_ID)
                              AND (REQUEST.author = PRODUCER_ID)
                              AND (SUGGESTION.author = CONSUMER_ID));
 END;
@@ -266,19 +266,19 @@ AS
 $$
 BEGIN
     RETURN QUERY SELECT suggestion.author,
-                        (SELECT NAME FROM "USER" WHERE ID = SUGGESTION.AUTHOR),
-                        (SELECT surname FROM "USER" WHERE ID = SUGGESTION.AUTHOR),
+                        (SELECT NAME FROM USERS WHERE ID = SUGGESTION.AUTHOR),
+                        (SELECT surname FROM USERS WHERE ID = SUGGESTION.AUTHOR),
                         REQUEST.author,
-                        (SELECT NAME FROM "USER" WHERE ID = REQUEST.author),
-                        (SELECT surname FROM "USER" WHERE ID = REQUEST.author),
+                        (SELECT NAME FROM USERS WHERE ID = REQUEST.author),
+                        (SELECT surname FROM USERS WHERE ID = REQUEST.author),
                         SUGGESTION.NAME,
                         REQUEST.agreed_time,
                         (SELECT IS_TIME_CROSSES(REQUEST.agreed_time, suggestion.author, REQUEST.author))
-                 FROM "USER"
-                          JOIN request ON "USER".id = request.author
+                 FROM USERS
+                          JOIN request ON USERS.id = request.author
                           JOIN suggestion_request ON request.id = suggestion_request.request
                           JOIN suggestion ON suggestion_request.suggestion = suggestion.id
-                 WHERE ("USER".ID = USER_ID_1 OR "USER".ID = USER_ID_2)
+                 WHERE (USERS.ID = USER_ID_1 OR USERS.ID = USER_ID_2)
                    AND (REQUEST.author = USER_ID_1 OR REQUEST.author = USER_ID_2)
                    AND (SUGGESTION.author = USER_ID_1 OR SUGGESTION.author = USER_ID_2);
 END;
@@ -301,19 +301,19 @@ AS
 $$
 BEGIN
     RETURN QUERY SELECT suggestion.author,
-                        (SELECT NAME FROM "USER" WHERE ID = SUGGESTION.AUTHOR),
-                        (SELECT surname FROM "USER" WHERE ID = SUGGESTION.AUTHOR),
+                        (SELECT NAME FROM USERS WHERE ID = SUGGESTION.AUTHOR),
+                        (SELECT surname FROM USERS WHERE ID = SUGGESTION.AUTHOR),
                         REQUEST.author,
-                        (SELECT NAME FROM "USER" WHERE ID = REQUEST.author),
-                        (SELECT surname FROM "USER" WHERE ID = REQUEST.author),
+                        (SELECT NAME FROM USERS WHERE ID = REQUEST.author),
+                        (SELECT surname FROM USERS WHERE ID = REQUEST.author),
                         SUGGESTION.NAME,
                         REQUEST.agreed_time,
                         (SELECT IS_TIME_CROSSES(REQUEST.agreed_time, suggestion.author, REQUEST.author))
-                 FROM "USER"
-                          JOIN request ON "USER".id = request.author
+                 FROM USERS
+                          JOIN request ON USERS.id = request.author
                           JOIN suggestion_request ON request.id = suggestion_request.request
                           JOIN suggestion ON suggestion_request.suggestion = suggestion.id
-                 WHERE ("USER".ID = USER_ID_1 OR "USER".ID = USER_ID_2 OR "USER".ID = USER_ID_3)
+                 WHERE (USERS.ID = USER_ID_1 OR USERS.ID = USER_ID_2 OR USERS.ID = USER_ID_3)
                    AND (REQUEST.author = USER_ID_1 OR REQUEST.author = USER_ID_2 OR REQUEST.author = USER_ID_3)
                    AND (SUGGESTION.author = USER_ID_1 OR SUGGESTION.author = USER_ID_2 OR SUGGESTION.author = USER_ID_3);
 END;
