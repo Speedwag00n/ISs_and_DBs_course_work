@@ -1,19 +1,24 @@
 package sharing.dormitory.db.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Getter
 @Setter
+@ToString
+@EqualsAndHashCode
 @Table(name = "DORMITORY")
 @Entity
 public class Dormitory {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private long id;
+    private Integer id;
 
     @Column(name = "NAME", nullable = false)
     private String name;

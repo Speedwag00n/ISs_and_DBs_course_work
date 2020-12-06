@@ -1,7 +1,9 @@
 package sharing.dormitory.db.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.validator.constraints.Range;
 
@@ -12,12 +14,15 @@ import java.util.List;
 
 @Getter
 @Setter
+@ToString
+@EqualsAndHashCode
 @Table(name = "USERS")
 @Entity
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private long id;
+    private Integer id;
 
     @Column(name = "USERNAME", nullable = false, unique = true)
     private String username;
@@ -31,24 +36,22 @@ public class User {
     @Column(name = "EMAIL", nullable = false)
     private String email;
 
-    @Column(name = "TELEPHONE", nullable = false)
-    @Range(min = 12, max = 12)
+    @Column(name = "TELEPHONE", length = 12, nullable = false)
     private String telephone;
 
     @Column(name = "PASSWORD", nullable = false)
     private String password;
 
     @Column(name = "PASSWORD_SALT", nullable = false)
-    private String passwordSalt;
+    private String passwordSalt = "1";
 
-    @MapsId("dormitoryId")
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="DORMITORY", referencedColumnName="id")
     private Dormitory dormitory;
 
     @Column(name = "RATING", nullable = false)
     @Range(min = 0, max = 5)
-    private float rating;
+    private Float rating = 0.0f;
 
     @Column(name = "ROLES")
     private String roles = "";
@@ -60,7 +63,7 @@ public class User {
     @ColumnDefault("1")
     private int active = 1;
 
-    public User(String username, String password, String name, String surname, String email, String telephone, Dormitory dormitory, float rating){
+    public User(String username, String password, String name, String surname, String email, String telephone, Dormitory dormitory, Float rating){
         this.username = username;
         this.password = password;
         this.name = name;
