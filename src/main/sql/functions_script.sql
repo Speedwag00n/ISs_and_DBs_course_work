@@ -1,3 +1,22 @@
+CREATE OR REPLACE FUNCTION GET_USER_OBJECTS(AUTHOR INTEGER)
+    RETURNS TABLE
+            (
+                ID           INTEGER,
+                NAME         VARCHAR(32),
+                DESCRIPTION  VARCHAR(256),
+                IMAGE        BYTEA,
+                OBJECT_STATE "OBJECT_STATE",
+                USER_ID      INTEGER
+            )
+AS
+$$
+BEGIN
+    RETURN QUERY SELECT *
+                 FROM object
+                 WHERE user_id = AUTHOR;
+END;
+$$ LANGUAGE PLPGSQL;
+
 CREATE OR REPLACE FUNCTION INSERT_OBJECT_SUGGESTION(NAME_SUGGESTION VARCHAR(32),
                                                     DESCRIPTION_SUGGESTION VARCHAR(256),
                                                     NAME_OBJECT VARCHAR(32),
@@ -315,6 +334,7 @@ BEGIN
                           JOIN suggestion ON suggestion_request.suggestion = suggestion.id
                  WHERE (USERS.ID = USER_ID_1 OR USERS.ID = USER_ID_2 OR USERS.ID = USER_ID_3)
                    AND (REQUEST.author = USER_ID_1 OR REQUEST.author = USER_ID_2 OR REQUEST.author = USER_ID_3)
-                   AND (SUGGESTION.author = USER_ID_1 OR SUGGESTION.author = USER_ID_2 OR SUGGESTION.author = USER_ID_3);
+                   AND (SUGGESTION.author = USER_ID_1 OR SUGGESTION.author = USER_ID_2 OR
+                        SUGGESTION.author = USER_ID_3);
 END;
 $$ LANGUAGE PLPGSQL;

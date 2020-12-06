@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Предметы</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <script th:src="@{/js/jquery.min.js}"></script>
+</head>
+<body>
+<h3 style="text-align: center">Ваши Объекты</h3>
+<table>
+    <tbody>
+    <tr th:each="object: ${objects}">
+        <td th:text="${object.name}"></td>
+        <td th:text="${object.description}"></td>
+        <td th:text="${object.image}"></td>
+        <td><span th:if="${object.state} == 'IN_STOCK'" th:text="In stock"></span>
+            <span th:unless="${object.state} == 'SHARED'" th:text="Shared"></span></td>
+        <td style="font-size: 20pt">
+            <span>✠</span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<h3 style="text-align: center">Ваши услуги</h3>
+<table style="margin: auto">
+    <tbody>
+    <tr th:each="service: ${services}">
+        <td th:text="${service.name}"></td>
+        <td th:text="${service.description}"></td>
+        <td th:text="${service.image}"></td>
+        <td style="font-size: 20pt">
+            <span>✠</span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
