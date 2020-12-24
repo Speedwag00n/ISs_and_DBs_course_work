@@ -39,8 +39,9 @@ public class ThingsController {
     }
 
     @PostMapping("/things/object/create")
-    public String createObject(@ModelAttribute Object object, Model model) {
-        thingsService.createObject(object, 1);
-        return "things";
+    public String createObject(@ModelAttribute Object object, Authentication authentication, Model model) {
+        Integer userId = userService.getUser(authentication.getName()).getId();
+        thingsService.createObject(object, userId);
+        return things(authentication, model);
     }
 }
