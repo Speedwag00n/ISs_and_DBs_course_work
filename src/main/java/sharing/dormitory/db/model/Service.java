@@ -1,6 +1,7 @@
 package sharing.dormitory.db.model;
 
 import lombok.Data;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
@@ -12,6 +13,7 @@ public class Service {
     Integer id;
     String name;
     String description;
+    @Type(type="org.hibernate.type.BinaryType")
     @Lob
     private Byte[] image;
     @ManyToOne
