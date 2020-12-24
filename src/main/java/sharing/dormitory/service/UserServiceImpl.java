@@ -32,4 +32,11 @@ public class UserServiceImpl implements UserService {
         userRepository.save(entity);
     }
 
+    @Override
+    public UserDTO getUser(String username) {
+        User entity = userRepository.findByUsername(username);
+        UserDTO dto = userMapper.entityToDto(entity);
+        return dto;
+    }
+
 }
