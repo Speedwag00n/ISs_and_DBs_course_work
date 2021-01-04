@@ -25,15 +25,15 @@ public class ServicesController {
         model.addAttribute("id", userId);
         List<Service> services = servicesService.getUserService(userId);
         model.addAttribute("services", services);
-        model.addAttribute("newService", new Object());
+        model.addAttribute("newService", new Service());
         return "services";
     }
 
-    @DeleteMapping("/services/{id}")
-    public String delete(Authentication authentication, Model model) {
+    @GetMapping("/services/delete/{id}")
+    public String delete(Authentication authentication, Model model, @PathVariable String id) {
+        servicesService.deleteObject(Integer.parseInt(id));
         return services(authentication, model);
     }
-
     @PostMapping("/services/create")
     public String createService(@ModelAttribute Service service, Authentication authentication, Model model) {
         Integer userId = userService.getUser(authentication.getName()).getId();
