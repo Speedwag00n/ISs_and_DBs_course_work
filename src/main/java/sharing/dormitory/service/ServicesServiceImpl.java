@@ -23,4 +23,9 @@ public class ServicesServiceImpl implements ServicesService {
         service.setUser(userRepository.findById(id).orElseThrow(IllegalArgumentException::new));
         serviceRepository.save(service);
     }
+
+    @Override
+    public void deleteObject(Integer id) {
+        serviceRepository.deleteById(id);
+    }
 }

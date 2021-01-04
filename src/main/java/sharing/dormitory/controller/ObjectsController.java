@@ -7,8 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import sharing.dormitory.db.model.Object;
+import sharing.dormitory.service.ObjectsService;
 import sharing.dormitory.service.ObjectsServiceImpl;
 import sharing.dormitory.service.UserService;
 
@@ -19,7 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ObjectsController {
     private final UserService userService;
-    private final ObjectsServiceImpl objectsService;
+    private final ObjectsService objectsService;
 
     @GetMapping("/objects")
     public String objects(Authentication authentication, Model model) {
@@ -31,8 +33,9 @@ public class ObjectsController {
         return "objects";
     }
 
-    @DeleteMapping("/objects/{id}")
-    public String delete(Authentication authentication, Model model) {
+    @GetMapping("/objects/delete/{id}")
+    public String delete(Authentication authentication, Model model, @PathVariable String id) {
+        objectsService.deleteObject(Integer.parseInt(id));
         return objects(authentication, model);
     }
 

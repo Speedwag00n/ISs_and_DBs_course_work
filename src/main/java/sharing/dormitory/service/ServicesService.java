@@ -10,4 +10,6 @@ public interface ServicesService {
 
     void createService(Service service, Integer id);
 
+    void deleteObject(Integer id);
+
 }

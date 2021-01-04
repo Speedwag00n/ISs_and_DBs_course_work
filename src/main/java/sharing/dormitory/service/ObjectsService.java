@@ -10,4 +10,6 @@ public interface ObjectsService {
 
     void createObject(Object object, Integer id);
 
+    void deleteObject(Integer id);
+
 }

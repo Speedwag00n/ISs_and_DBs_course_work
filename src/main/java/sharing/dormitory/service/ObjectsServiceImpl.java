@@ -26,4 +26,9 @@ public class ObjectsServiceImpl implements ObjectsService {
         object.setState(ObjectState.IN_STOCK);
         objectRepository.save(object);
     }
+
+    @Override
+    public void deleteObject(Integer id) {
+        objectRepository.deleteById(id);
+    }
 }
