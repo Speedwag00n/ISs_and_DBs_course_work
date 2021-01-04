@@ -22,9 +22,10 @@
         <td th:text="${object.name}"></td>
         <td th:text="${object.description}"></td>
         <td th:text="${object.image}"></td>
-        <td><span th:if="${object.state} == 'IN_STOCK'" th:text="In stock"></span>
-            <span th:text="${object.state}"></span>
-            <span th:if="${object.state} == 'SHARED'" th:text="Shared"></span></td>
+        <td>
+            <span th:if="${object.state == T(sharing.dormitory.db.enm.ObjectState).IN_STOCK}">In stock</span>
+            <span th:if="${object.state == T(sharing.dormitory.db.enm.ObjectState).SHARED}">Shared</span>
+        </td>
         <td style="font-size: 20pt">
             <a th:href="@{/objects/delete/{id}(id=${object.id})}" class="btn-close" aria-label="Close"></a>
         </td>

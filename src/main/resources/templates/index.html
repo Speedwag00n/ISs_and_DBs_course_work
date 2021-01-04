@@ -27,13 +27,13 @@
             <button sec:authorize="isAuthenticated()" class="btn btn-outline-danger my-2 my-sm-0 btn-sm" type="submit">
                 Logout
             </button>
-            <button sec:authorize="isAnonymous()" th:href="@{~/login}" class="btn btn-outline-info my-2 my-sm-0 btn-sm"
-                    type="submit">Login
-            </button>
-            <button sec:authorize="isAnonymous()" th:href="@{~/register}" class="btn btn-outline-info my-2 my-sm-0 btn-sm"
-                    type="submit">Register
-            </button>
         </form>
+        <a sec:authorize="isAnonymous()" th:href="@{~/login}" class="btn btn-outline-info my-2 my-sm-0 btn-sm">
+            Login
+        </a>
+        <a sec:authorize="isAnonymous()" th:href="@{~/register}" class="btn btn-outline-info my-2 my-sm-0 btn-sm" type="submit">
+            Register
+        </a>
     </div>
 </main>
 
