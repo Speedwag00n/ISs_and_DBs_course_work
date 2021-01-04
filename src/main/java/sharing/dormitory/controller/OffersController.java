@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import sharing.dormitory.db.enm.Status;
 import sharing.dormitory.db.model.Offer;
 import sharing.dormitory.service.OffersServiceImpl;
 import sharing.dormitory.service.UserService;
@@ -25,7 +26,7 @@ public class OffersController {
     public String offers(Authentication authentication, Model model) {
         Integer userId = userService.getUser(authentication.getName()).getId();
         model.addAttribute("id", userId);
-        List<Offer> offers = offersService.getOffers();
+        List<Offer> offers = offersService.getOffers(userId);
         model.addAttribute("offers", offers);
         model.addAttribute("newOffer", new Offer());
         return "offers";
