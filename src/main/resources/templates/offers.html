@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Запросы</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <script th:src="@{/js/jquery.min.js}"></script>
+</head>
+<body>
+</span>
+<h3 style="text-align: center">Открытые запросы</h3>
+<table style="margin: auto">
+    <tbody>
+    <tr th:each="offer: ${offers}">
+        <td th:text="${offer.name}"></td>
+        <td th:text="${offer.description}"></td>
+        <td th:text="${offer.creationDate}"></td>
+        <td th:text="${offer.user.name}"></td>
+        <td style="font-size: 20pt">
+            <span>✠</span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
