@@ -5,7 +5,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import sharing.dormitory.db.model.Object;
 import sharing.dormitory.db.model.Service;
 import sharing.dormitory.service.ServicesService;
 import sharing.dormitory.service.UserService;
@@ -22,7 +21,6 @@ public class ServicesController {
     @GetMapping("/services")
     public String services(Authentication authentication, Model model) {
         Integer userId = userService.getUser(authentication.getName()).getId();
-        model.addAttribute("id", userId);
         List<Service> services = servicesService.getUserService(userId);
         model.addAttribute("services", services);
         model.addAttribute("newService", new Service());
@@ -30,8 +28,8 @@ public class ServicesController {
     }
 
     @GetMapping("/services/delete/{id}")
-    public String delete(Authentication authentication, Model model, @PathVariable String id) {
-        servicesService.deleteObject(Integer.parseInt(id));
+    public String delete(Authentication authentication, Model model, @PathVariable Integer id) {
+        servicesService.deleteService(id);
         return services(authentication, model);
     }
     @PostMapping("/services/create")

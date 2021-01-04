@@ -25,7 +25,7 @@ public class ServicesServiceImpl implements ServicesService {
     }
 
     @Override
-    public void deleteObject(Integer id) {
+    public void deleteService(Integer id) {
         serviceRepository.deleteById(id);
     }
 }

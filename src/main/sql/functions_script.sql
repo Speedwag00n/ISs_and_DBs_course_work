@@ -181,9 +181,9 @@ $$ LANGUAGE PLPGSQL;
 CREATE OR REPLACE FUNCTION GET_SERVICE_SUGGESTIONS_IN_DORMITORY(DORMITORY_ID INTEGER)
     RETURNS TABLE
             (
-                SUGGESTION_ID          INTEGER,
-                SUGGESTION_NAME        VARCHAR(32),
-                SUGGESTION_DESCRIPTION VARCHAR(256),
+                ID          INTEGER,
+                NAME        VARCHAR(32),
+                DESCRIPTION VARCHAR(256),
                 STATUS                 "STATUS",
                 CREATION_DATE          TIMESTAMP WITH TIME ZONE,
                 AUTHOR                 INTEGER,
@@ -217,9 +217,9 @@ $$ LANGUAGE PLPGSQL;
 CREATE OR REPLACE FUNCTION GET_OBJECT_SUGGESTIONS_IN_DORMITORY(DORMITORY_ID INTEGER)
     RETURNS TABLE
             (
-                SUGGESTION_ID          INTEGER,
-                SUGGESTION_NAME        VARCHAR(32),
-                SUGGESTION_DESCRIPTION VARCHAR(256),
+                ID          INTEGER,
+                NAME        VARCHAR(32),
+                DESCRIPTION VARCHAR(256),
                 STATUS                 "STATUS",
                 CREATION_DATE          TIMESTAMP WITH TIME ZONE,
                 AUTHOR                 INTEGER,

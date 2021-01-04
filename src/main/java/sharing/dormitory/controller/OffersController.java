@@ -4,13 +4,12 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import sharing.dormitory.db.enm.Status;
 import sharing.dormitory.db.model.Offer;
-import sharing.dormitory.service.OffersServiceImpl;
+import sharing.dormitory.service.OffersService;
 import sharing.dormitory.service.UserService;
 
 import java.util.List;
@@ -20,20 +19,29 @@ import java.util.List;
 @AllArgsConstructor
 public class OffersController {
     private final UserService userService;
-    private final OffersServiceImpl offersService;
+    private final OffersService offersService;
+
+    @GetMapping("/alloffers")
+    public String allOffers(Authentication authentication, Model model) {
+        Integer userId = userService.getUser(authentication.getName()).getId();
+        List<Offer> offers = offersService.getOffers(userId);
+        model.addAttribute("offers", offers);
+        model.addAttribute("newOffer", new Offer());
+        return "alloffers";
+    }
 
     @GetMapping("/offers")
     public String offers(Authentication authentication, Model model) {
         Integer userId = userService.getUser(authentication.getName()).getId();
-        model.addAttribute("id", userId);
-        List<Offer> offers = offersService.getOffers(userId);
+        List<Offer> offers = offersService.getUserOffers(userId);
         model.addAttribute("offers", offers);
         model.addAttribute("newOffer", new Offer());
         return "offers";
     }
 
-    @DeleteMapping("/offers/{id}")
-    public String delete(Authentication authentication, Model model) {
+    @GetMapping("/offers/delete/{id}")
+    public String delete(Authentication authentication, Model model, @PathVariable Integer id) {
+        offersService.deleteOffer(id);
         return offers(authentication, model);
     }
 
