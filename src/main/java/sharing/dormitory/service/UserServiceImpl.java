@@ -2,17 +2,10 @@ package sharing.dormitory.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sharing.dormitory.db.model.Dormitory;
 import sharing.dormitory.db.model.User;
-import sharing.dormitory.db.repository.DormitoryRepository;
 import sharing.dormitory.db.repository.UserRepository;
-import sharing.dormitory.dto.DormitoryDTO;
 import sharing.dormitory.dto.UserDTO;
-import sharing.dormitory.mapper.DormitoryMapper;
 import sharing.dormitory.mapper.UserMapper;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -33,10 +26,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO getUser(String username) {
+    public User getUser(String username) {
         User entity = userRepository.findByUsername(username);
-        UserDTO dto = userMapper.entityToDto(entity);
-        return dto;
+        return entity;
     }
 
 }

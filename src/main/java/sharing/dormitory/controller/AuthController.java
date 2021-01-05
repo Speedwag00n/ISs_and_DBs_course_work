@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import sharing.dormitory.db.model.User;
 import sharing.dormitory.dto.UserDTO;
 import sharing.dormitory.service.DormitoryService;
 import sharing.dormitory.service.UserService;
@@ -35,6 +36,10 @@ public class AuthController {
 
     @GetMapping("login")
     public String openLoginPage(Authentication authentication, Model model) {
+        if (authentication != null) {
+            User user = userService.getUser(authentication.getName());
+            model.addAttribute("user", user);
+        }
         return "login";
     }
 

@@ -36,14 +36,14 @@
 
             <div sec:authorize="isAuthenticated()" class="card">
                 <h3 class="card-header">
-                    <i class="fa fa-user"></i> Welcome, <span sec:authentication="name"></span>! You are authenticated now
+                    <i class="fa fa-user"></i> Profile
                 </h3>
-                <div class="card-block p-5 mx-auto">
-                    <form class="form-inline my-2 my-lg-0" method="post" th:action="@{/logout}">
-                        <button sec:authorize="isAuthenticated()" class="btn btn-danger my-2 my-sm-0 btn-lg" type="submit">
-                            Logout
-                        </button>
-                    </form>
+                <div class="card-block p-5 h4">
+                    <div>Username: <span th:text="${user.username}"></span></div>
+                    <div>Name: <span th:text="${user.name}"></span></div>
+                    <div>Surname: <span th:text="${user.surname}"></span></div>
+                    <div>Email: <span th:text="${user.email}"></span></div>
+                    <div>Dormitory: <span th:text="${user.dormitory.name}"></span></div>
                 </div>
             </div>
         </div>
