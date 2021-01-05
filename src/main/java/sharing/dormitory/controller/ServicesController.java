@@ -27,7 +27,7 @@ public class ServicesController {
         return "services";
     }
 
-    @GetMapping("/services/delete/{id}")
+    @PostMapping("/services/delete/{id}")
     public String delete(Authentication authentication, Model model, @PathVariable Integer id) {
         servicesService.deleteService(id);
         return services(authentication, model);

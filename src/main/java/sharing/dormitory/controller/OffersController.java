@@ -21,25 +21,17 @@ public class OffersController {
     private final UserService userService;
     private final OffersService offersService;
 
-    @GetMapping("/alloffers")
-    public String allOffers(Authentication authentication, Model model) {
+    @GetMapping("/offers")
+    public String offers(Authentication authentication, Model model) {
         Integer userId = userService.getUser(authentication.getName()).getId();
         List<Offer> offers = offersService.getOffers(userId);
         model.addAttribute("offers", offers);
         model.addAttribute("newOffer", new Offer());
-        return "alloffers";
-    }
-
-    @GetMapping("/offers")
-    public String offers(Authentication authentication, Model model) {
-        Integer userId = userService.getUser(authentication.getName()).getId();
-        List<Offer> offers = offersService.getUserOffers(userId);
-        model.addAttribute("offers", offers);
-        model.addAttribute("newOffer", new Offer());
+        model.addAttribute("userName", authentication.getName());
         return "offers";
     }
 
-    @GetMapping("/offers/delete/{id}")
+    @PostMapping("/offers/delete/{id}")
     public String delete(Authentication authentication, Model model, @PathVariable Integer id) {
         offersService.deleteOffer(id);
         return offers(authentication, model);

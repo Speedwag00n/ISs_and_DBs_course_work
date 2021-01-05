@@ -27,7 +27,9 @@
             <span th:if="${object.state == T(sharing.dormitory.db.enm.ObjectState).SHARED}">Shared</span>
         </td>
         <td style="font-size: 20pt">
-            <a th:href="@{/objects/delete/{id}(id=${object.id})}" class="btn-close" aria-label="Close"></a>
+            <form class="btn btn-danger btn-outline-danger my-2 my-sm-0 btn-sm" method="post" th:action="@{/objects/delete/{id}(id=${object.id})}">
+                <button class="btn-close" type="submit"></button>
+            </form>
         </td>
     </tr>
     </tbody>

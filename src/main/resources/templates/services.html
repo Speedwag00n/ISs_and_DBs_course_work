@@ -8,7 +8,20 @@
     <h3 th:if="${#lists.isEmpty(services)}">You don't have added service</h3>
     <span th:unless="${#lists.isEmpty(services)}">
 <h3>Your services</h3>
-
+<table class="table table-striped">
+    <tbody>
+    <tr th:each="service: ${services}">
+        <td th:text="${service.name}"></td>
+        <td th:text="${service.description}"></td>
+        <td th:text="${service.image}"></td>
+        <td style="font-size: 20pt">
+            <form class="btn btn-danger btn-outline-danger my-2 my-sm-0 btn-sm" method="post" th:action="@{/services/delete/{id}(id=${service.id})}">
+                <button class="btn-close" type="submit"></button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
 </span>
     <h3>Add new service</h3>
     <form action="#" th:action="@{/services/create}" th:object="${newService}" method="post">

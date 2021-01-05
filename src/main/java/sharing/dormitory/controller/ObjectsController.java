@@ -30,7 +30,7 @@ public class ObjectsController {
         return "objects";
     }
 
-    @GetMapping("/objects/delete/{id}")
+    @PostMapping("/objects/delete/{id}")
     public String delete(Authentication authentication, Model model, @PathVariable Integer id) {
         objectsService.deleteObject(id);
         return objects(authentication, model);

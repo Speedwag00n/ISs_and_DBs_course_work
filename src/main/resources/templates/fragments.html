@@ -37,13 +37,10 @@
                     <a class="nav-link" href="/services">Your services</a>
                 </li>
                 <li sec:authorize="isAuthenticated()" class="nav-item">
-                    <a class="nav-link" href="/offers">Your offers</a>
+                    <a class="nav-link" href="/offers">Open offers</a>
                 </li>
                 <li sec:authorize="isAuthenticated()" class="nav-item">
-                    <a class="nav-link" href="/alloffers">Open offers</a>
-                </li>
-                <li sec:authorize="isAuthenticated()" class="nav-item">
-                    <a class="nav-link" href="/allsuggestions">Open suggestions</a>
+                    <a class="nav-link" href="/suggestions">Open suggestions</a>
                 </li>
             </ul>
             <form class="d-flex" method="post" th:action="@{/logout}">

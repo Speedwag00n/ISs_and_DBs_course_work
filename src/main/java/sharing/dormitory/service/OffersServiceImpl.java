@@ -1,6 +1,7 @@
 package sharing.dormitory.service;
 
 import lombok.AllArgsConstructor;
+import sharing.dormitory.db.enm.Status;
 import sharing.dormitory.db.model.Dormitory;
 import sharing.dormitory.db.model.Offer;
 import sharing.dormitory.db.repository.OfferRepository;
@@ -9,6 +10,7 @@ import sharing.dormitory.db.repository.UserRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.StoredProcedureQuery;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @org.springframework.stereotype.Service
@@ -36,6 +38,8 @@ public class OffersServiceImpl implements OffersService {
     @Override
     public void createOffer(Offer offer, Integer userId) {
         offer.setUser(userRepository.findById(userId).orElseThrow(IllegalArgumentException::new));
+        offer.setOfferStatus(Status.OPEN);
+        offer.setCreationDate(OffsetDateTime.now());
         offerRepository.save(offer);
     }
 
