@@ -1,6 +1,7 @@
 package sharing.dormitory.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +34,7 @@ public class AuthController {
     }
 
     @GetMapping("login")
-    public String openLoginPage(Model model) {
+    public String openLoginPage(Authentication authentication, Model model) {
         return "login";
     }
 
