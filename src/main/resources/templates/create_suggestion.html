@@ -81,12 +81,19 @@
 <script th:src="@{/js/suggestion_validation.js}"></script>
 <script>
     function changeSelect(element) {
+        let services = document.getElementById('services')
+        let objects = document.getElementById('objects')
+        let serviceRadios = document.querySelectorAll('input[name=service]')
+        let objectRadios = document.querySelectorAll('input[name=object]')
+
         if (element.value == 'selectObject') {
-            document.getElementById('services').classList.add('d-none')
-            document.getElementById('objects').classList.remove('d-none')
+            services.classList.add('d-none')
+            objects.classList.remove('d-none')
+            serviceRadios.forEach(element => element.checked = false)
         } else if (element.value == 'selectService') {
-            document.getElementById('services').classList.remove('d-none')
-            document.getElementById('objects').classList.add('d-none')
+            services.classList.remove('d-none')
+            objects.classList.add('d-none')
+            objectRadios.forEach(element => element.checked = false)
         }
     }
 </script>
