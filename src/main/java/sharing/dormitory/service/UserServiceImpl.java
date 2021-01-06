@@ -31,4 +31,10 @@ public class UserServiceImpl implements UserService {
         return entity;
     }
 
+    @Override
+    public User getUser(Integer id) {
+        User entity = userRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        return entity;
+    }
+
 }

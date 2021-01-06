@@ -28,4 +28,9 @@ public class ServicesServiceImpl implements ServicesService {
     public void deleteService(Integer id) {
         serviceRepository.deleteById(id);
     }
+
+    @Override
+    public Service getService(Integer id) {
+        return serviceRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+    }
 }

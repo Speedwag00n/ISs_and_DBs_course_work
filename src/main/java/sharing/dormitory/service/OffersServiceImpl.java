@@ -47,4 +47,9 @@ public class OffersServiceImpl implements OffersService {
     public void deleteOffer(Integer id) {
         offerRepository.deleteById(id);
     }
+
+    @Override
+    public Offer getOffer(Integer id) {
+        return offerRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+    }
 }

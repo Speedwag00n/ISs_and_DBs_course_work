@@ -12,4 +12,6 @@ public interface ObjectsService {
 
     void deleteObject(Integer id);
 
+    Object getObject(Integer id);
+
 }
