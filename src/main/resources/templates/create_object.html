@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <title>Create object</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<nav th:insert="fragments.html :: nav"></nav>
+
+<div class="container">
+    <div class="w-50 mt-5 mx-auto">
+        <div class="card">
+            <h3 class="card-header">
+                <i class="fa fa-user"></i> Add new object
+            </h3>
+            <div class="card-block p-5">
+                <form action="#" th:action="@{/objects/create}" th:object="${newObject}" method="post" onsubmit="return validateObjectForm(this);">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input th:field="*{name}" type="text" class="form-control" id="name" name="name"
+                               placeholder="Object name" maxlength="32">
+                    </div>
+                    <span id="warning-container-name" class="text-danger warning-container"></span>
+
+                    <div class="form-group">
+                        <label for="Description">Description</label>
+                        <input th:field="*{description}" type="text" class="form-control" id="Description" name="Description"
+                               placeholder="Description" maxlength="32">
+                    </div>
+                    <span id="warning-container-description" class="text-danger warning-container"></span>
+
+                    <div class="form-actions" style="margin-top: 12px;">
+                        <button type="submit" class="btn btn-success">Create</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/js/validation.js}"></script>
+<script th:src="@{/js/object_validation.js}"></script>
+</body>
+</html>

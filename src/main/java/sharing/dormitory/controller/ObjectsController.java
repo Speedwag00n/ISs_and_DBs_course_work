@@ -26,7 +26,6 @@ public class ObjectsController {
         Integer userId = userService.getUser(authentication.getName()).getId();
         List<Object> objects = objectsService.getUserObject(userId);
         model.addAttribute("objects", objects);
-        model.addAttribute("newObject", new Object());
         return "objects";
     }
 
@@ -34,6 +33,12 @@ public class ObjectsController {
     public String delete(Authentication authentication, Model model, @PathVariable Integer id) {
         objectsService.deleteObject(id);
         return objects(authentication, model);
+    }
+
+    @GetMapping("/objects/create")
+    public String createObjectPage(Model model) {
+        model.addAttribute("newObject", new Object());
+        return "create_object";
     }
 
     @PostMapping("/objects/create")
