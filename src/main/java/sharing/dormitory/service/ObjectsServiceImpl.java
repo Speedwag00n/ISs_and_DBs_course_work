@@ -31,4 +31,9 @@ public class ObjectsServiceImpl implements ObjectsService {
     public void deleteObject(Integer id) {
         objectRepository.deleteById(id);
     }
+
+    @Override
+    public Object getObject(Integer id) {
+        return objectRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+    }
 }

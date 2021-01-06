@@ -13,4 +13,6 @@ public interface OffersService {
     void createOffer(Offer offer, Integer id);
 
     void deleteOffer(Integer id);
+
+    Offer getOffer(Integer id);
 }

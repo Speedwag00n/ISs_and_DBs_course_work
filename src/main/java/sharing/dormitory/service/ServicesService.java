@@ -12,4 +12,6 @@ public interface ServicesService {
 
     void deleteService(Integer id);
 
+    Service getService(Integer id);
+
 }

@@ -17,5 +17,5 @@ public class ServiceOfferRequest {
     private RequestPk id;
     @ManyToOne
     @JoinColumn(name = "SERVICE")
-    private Object object;
+    private Service service;
 }
