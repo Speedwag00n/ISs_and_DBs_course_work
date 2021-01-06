@@ -1,6 +1,7 @@
 package sharing.dormitory.service;
 
 import sharing.dormitory.db.model.Suggestion;
+import sharing.dormitory.dto.SuggestionDTO;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ public interface SuggestionsService {
 
     List<Suggestion> getUserSuggestions(Integer userId);
 
-    void createSuggestion(Suggestion offer, Integer id);
+    void createSuggestion(SuggestionDTO suggestion, Integer id);
 
     void deleteSuggestion(Integer id);
 }

@@ -12,8 +12,8 @@
                 <i class="fa fa-user"></i> Actions
             </h3>
             <div class="card-block p-2 mx-auto">
-                <a th:href="@{~/offers/create}" class="btn btn-info my-2 my-sm-0 btn-lg mx-5">
-                    Create offer
+                <a th:href="@{~/suggestions/create}" class="btn btn-info my-2 my-sm-0 btn-lg mx-5">
+                    Create suggestion
                 </a>
             </div>
         </div>
@@ -26,20 +26,20 @@
                 <fieldset>
                     <input th:if="${showMy}" name="show_my" type="checkbox" id="show_my" checked>
                     <input th:unless="${showMy}" name="show_my" type="checkbox" id="show_my">
-                    <label for="show_my" class="ml-2" >Show only my offers</label>
+                    <label for="show_my" class="ml-2" >Show only my suggestions</label>
                 </fieldset>
             </div>
         </div>
 
-        <div th:if="${#lists.isEmpty(offers)}" class="card mt-5">
+        <div th:if="${#lists.isEmpty(suggestions)}" class="card mt-5">
             <div class="card-block p-5">
-                <h3 th:if="${#lists.isEmpty(services)}">In your dormitory there isn't any created offer</h3>
+                <h3 th:if="${#lists.isEmpty(services)}">In your dormitory there isn't any created suggestion</h3>
             </div>
         </div>
 
-        <div th:unless="${#lists.isEmpty(offers)}" class="card mt-5">
+        <div th:unless="${#lists.isEmpty(suggestions)}" class="card mt-5">
             <h3 class="card-header">
-                <i class="fa fa-user"></i> Open offers
+                <i class="fa fa-user"></i> Open suggestions
             </h3>
             <div class="card-block">
                 <table class="table table-striped p-5">
@@ -53,16 +53,11 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="offer: ${offers}">
-                        <td th:text="${offer.name}"></td>
-                        <td th:text="${offer.description}"></td>
-                        <td th:text="${offer.creationDate}"></td>
-                        <td th:text="${offer.user.username}"></td>
-                        <td style="font-size: 20pt">
-                            <form th:if="${offer.user.username == userName}" class="btn btn-danger btn-outline-danger my-2 my-sm-0 btn-sm" method="post" th:action="@{/offers/delete/{id}(id=${offer.id})}">
-                                <button class="btn-close" type="submit"></button>
-                            </form>
-                        </td>
+                    <tr th:each="suggestion: ${suggestions}">
+                        <td th:text="${suggestion.name}"></td>
+                        <td th:text="${suggestion.description}"></td>
+                        <td th:text="${suggestion.creationDate}"></td>
+                        <td th:text="${suggestion.user.username}"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -71,13 +66,13 @@
     </div>
 </div>
 <script>
-    let checkbox = document.querySelector("input[name=show_my]");
+    var checkbox = document.querySelector("input[name=show_my]");
 
     checkbox.addEventListener('change', function() {
         if (this.checked) {
-            window.location.href = '/offers?show_my=true'
+            window.location.href = '/suggestions?show_my=true'
         } else {
-            window.location.href = '/offers'
+            window.location.href = '/suggestions'
         }
     });
 </script>

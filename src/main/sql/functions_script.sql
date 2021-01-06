@@ -182,27 +182,25 @@ CREATE OR REPLACE FUNCTION GET_SERVICE_SUGGESTIONS_IN_DORMITORY(DORMITORY_ID INT
     RETURNS TABLE
             (
                 ID          INTEGER,
+                SUGGESTION  INTEGER,
                 NAME        VARCHAR(32),
                 DESCRIPTION VARCHAR(256),
                 STATUS                 "STATUS",
                 CREATION_DATE          TIMESTAMP WITH TIME ZONE,
                 AUTHOR                 INTEGER,
-                SERVICE_ID             INTEGER,
-                SERVICE_NAME           VARCHAR(32),
-                SERVICE_DESCRIPTION    VARCHAR(256)
+                SERVICE                INTEGER
             )
 AS
 $$
 BEGIN
-    RETURN QUERY SELECT SUGGESTION.ID          as SUGGESTION_ID,
+    RETURN QUERY SELECT SUGGESTION.ID          as ID,
+                        SUGGESTION.ID          as SUGGESTION_ID,
                         SUGGESTION.NAME        as SUGGESTION_NAME,
                         SUGGESTION.DESCRIPTION as SUGGESTION_DESCRIPTION,
                         SUGGESTION.STATUS,
                         SUGGESTION.CREATION_DATE,
                         SUGGESTION.AUTHOR,
-                        SERVICE.ID             as SERVICE_ID,
-                        SERVICE.NAME           as SERVICE_NAME,
-                        SERVICE.DESCRIPTION    as SERVICE_DESCRIPTION
+                        SERVICE.ID             as SERVICE
                  FROM USERS
                           JOIN DORMITORY ON USERS.DORMITORY = DORMITORY.ID
                           JOIN SUGGESTION ON SUGGESTION.AUTHOR = USERS.ID
@@ -218,29 +216,25 @@ CREATE OR REPLACE FUNCTION GET_OBJECT_SUGGESTIONS_IN_DORMITORY(DORMITORY_ID INTE
     RETURNS TABLE
             (
                 ID          INTEGER,
+                SUGGESTION  INTEGER,
                 NAME        VARCHAR(32),
                 DESCRIPTION VARCHAR(256),
                 STATUS                 "STATUS",
                 CREATION_DATE          TIMESTAMP WITH TIME ZONE,
                 AUTHOR                 INTEGER,
-                OBJECT_ID              INTEGER,
-                OBJECT_NAME            VARCHAR(32),
-                OBJECT_DESCRIPTION     VARCHAR(256),
-                OBJECT_STATE           "OBJECT_STATE"
+                OBJECT                 INTEGER
             )
 AS
 $$
 BEGIN
-    RETURN QUERY SELECT SUGGESTION.ID          as SUGGESTION_ID,
+    RETURN QUERY SELECT SUGGESTION.ID          as ID,
+                        SUGGESTION.ID          as SUGGESTION_ID,
                         SUGGESTION.NAME        as SUGGESTION_NAME,
                         SUGGESTION.DESCRIPTION as SUGGESTION_DESCRIPTION,
                         SUGGESTION.STATUS,
                         SUGGESTION.CREATION_DATE,
                         SUGGESTION.AUTHOR,
-                        OBJECT.ID              as OBJECT_ID,
-                        OBJECT.NAME            as OBJECT_NAME,
-                        OBJECT.DESCRIPTION     as OBJECT_DESCRIPTION,
-                        OBJECT.OBJECT_STATE    as OBJECT_STATE
+                        OBJECT.ID              as OBJECT
                  FROM USERS
                           JOIN DORMITORY ON USERS.DORMITORY = DORMITORY.ID
                           JOIN SUGGESTION ON SUGGESTION.AUTHOR = USERS.ID
