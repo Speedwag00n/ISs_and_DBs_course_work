@@ -89,7 +89,6 @@ CREATE TABLE REQUEST
     NAME        VARCHAR(32) CHECK (CHAR_LENGTH(NAME) >= 6)                         NOT NULL,
     CONTENT     VARCHAR(256)                                                       NOT NULL,
     AUTHOR      INTEGER REFERENCES USERS (ID) ON UPDATE CASCADE ON DELETE CASCADE NOT NULL,
-    AGREED_TIME TIMESTAMP WITH TIME ZONE                                           NOT NULL
 );
 
 CREATE TABLE CATEGORY_OF_OBJECT

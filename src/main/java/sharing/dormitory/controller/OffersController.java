@@ -74,7 +74,7 @@ public class OffersController {
         Integer userId = userService.getUser(authentication.getName()).getId();
         offerRequest.setUserId(userId);
         offerRequest.setOfferId(offer.getId());
-        requestService.create(offerRequest);
+        requestService.createOfferRequest(offerRequest);
         return "request_recorded";
     }
 
