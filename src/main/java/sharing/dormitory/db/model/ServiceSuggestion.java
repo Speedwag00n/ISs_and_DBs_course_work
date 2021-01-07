@@ -22,9 +22,8 @@ import javax.persistence.*;
         parameters = {
                 @StoredProcedureParameter(name = "NAME_SUGGESTION", mode = ParameterMode.IN, type = String.class),
                 @StoredProcedureParameter(name = "DESCRIPTION_SUGGESTION", mode = ParameterMode.IN, type = String.class),
-                @StoredProcedureParameter(name = "NAME_SERVICE", mode = ParameterMode.IN, type = String.class),
-                @StoredProcedureParameter(name = "DESCRIPTION_SERVICE", mode = ParameterMode.IN, type = String.class),
-                @StoredProcedureParameter(name = "AUTHOR", mode = ParameterMode.IN, type = Integer.class)
+                @StoredProcedureParameter(name = "SERVICE_ID", mode = ParameterMode.IN, type = Integer.class),
+                @StoredProcedureParameter(name = "AUTHOR_ID", mode = ParameterMode.IN, type = Integer.class)
         }
 )
 @Entity

@@ -88,14 +88,14 @@ public class SuggestionsController {
         Integer userId = userService.getUser(authentication.getName()).getId();
         model.addAttribute("suggestion", suggestionsService.getSuggestion(id));
         model.addAttribute("suggestionRequest", new SuggestionRequestDTO());
-        return "create_suggestion";
+        return "create_request_suggestion";
     }
 
     @PostMapping("/suggestions/request/{id}")
     public String createRequest(Authentication authentication, @ModelAttribute SuggestionRequestDTO suggestionRequest,
                                 @PathVariable Integer id, Model model) {
         Suggestion suggestion = suggestionsService.getSuggestion(id);
-        model.addAttribute("suggestion", suggestion);
+        model.addAttribute("item", suggestion);
         Integer userId = userService.getUser(authentication.getName()).getId();
         suggestionRequest.setUserId(userId);
         suggestionRequest.setSuggestionId(suggestion.getId());

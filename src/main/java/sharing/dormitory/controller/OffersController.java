@@ -63,14 +63,14 @@ public class OffersController {
         model.addAttribute("objects", objectsService.getUserObject(userId));
         model.addAttribute("services", servicesService.getUserService(userId));
         model.addAttribute("offerRequest", new OfferRequestDTO());
-        return "create_request";
+        return "create_request_offer";
     }
 
     @PostMapping("/offers/request/{id}")
     public String createRequest(Authentication authentication, @ModelAttribute OfferRequestDTO offerRequest,
                                 @PathVariable Integer id, Model model) {
         Offer offer = offersService.getOffer(id);
-        model.addAttribute("offer", offer);
+        model.addAttribute("item", offer);
         Integer userId = userService.getUser(authentication.getName()).getId();
         offerRequest.setUserId(userId);
         offerRequest.setOfferId(offer.getId());

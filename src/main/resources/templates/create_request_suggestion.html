@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <title>Create object</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<nav th:insert="fragments.html :: nav"></nav>
+
+<div class="container">
+    <div class="w-75 mt-5 mx-auto">
+        <div class="card">
+            <h3 class="card-header">
+                <i class="fa fa-user"></i> Respond to suggestion
+            </h3>
+            <div class="card-block p-5">
+                <table class="table table-striped p-5">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Creation date</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td th:text="${suggestion.name}"></td>
+                        <td th:text="${suggestion.description}"></td>
+                        <td th:text="${#temporals.format(suggestion.creationDate, 'dd-MM-yyyy HH:mm')}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <form action="#" th:action="@{/suggestions/request/{id}(id=${suggestion.id})}" th:object="${suggestionRequest}"
+                      method="post" onsubmit="return validateRequestForm(this);">
+                    <div class="form-group">
+                        <label for="Description">Description</label>
+                        <input th:field="*{description}" type="text" class="form-control" id="Description"
+                               name="Description"
+                               placeholder="Description" maxlength="32">
+                    </div>
+
+                    <div class="form-actions" style="margin-top: 12px;">
+                        <button type="submit" class="btn btn-success">Create</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/js/validation.js}"></script>
+<script th:src="@{/js/request_validation.js}"></script>
+<script>
+    function changeSelect(element) {
+        let services = document.getElementById('services')
+        let objects = document.getElementById('objects')
+        let serviceRadios = document.querySelectorAll('input[name=serviceId]')
+        let objectRadios = document.querySelectorAll('input[name=objectId]')
+
+        if (element.value == 'selectObject') {
+            services.classList.add('d-none')
+            objects.classList.remove('d-none')
+            serviceRadios.forEach(element => element.checked = false)
+        } else if (element.value == 'selectService') {
+            services.classList.remove('d-none')
+            objects.classList.add('d-none')
+            objectRadios.forEach(element => element.checked = false)
+        }
+    }
+</script>
+</body>
+</html>

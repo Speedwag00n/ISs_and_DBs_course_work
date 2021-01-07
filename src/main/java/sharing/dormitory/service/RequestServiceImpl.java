@@ -41,7 +41,7 @@ public class RequestServiceImpl implements RequestService {
 
     public void createSuggestionRequest(SuggestionRequestDTO suggestionRequest) {
         Suggestion suggestion = suggestionsService.getSuggestion(suggestionRequest.getSuggestionId());
-        StoredProcedureQuery   query = entityManager.createNamedStoredProcedureQuery("insertServiceOfferRequest");
+        StoredProcedureQuery   query = entityManager.createNamedStoredProcedureQuery("insertSuggestionRequest");
         query.setParameter("name", suggestion.getName());
         query.setParameter("content", suggestionRequest.getDescription());
         query.setParameter("author", suggestionRequest.getUserId());

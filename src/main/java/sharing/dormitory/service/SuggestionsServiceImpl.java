@@ -1,9 +1,8 @@
 package sharing.dormitory.service;
 
 import lombok.AllArgsConstructor;
-import sharing.dormitory.db.enm.Status;
-import sharing.dormitory.db.model.*;
-import sharing.dormitory.db.model.Object;
+import sharing.dormitory.db.model.Dormitory;
+import sharing.dormitory.db.model.Suggestion;
 import sharing.dormitory.db.repository.ObjectRepository;
 import sharing.dormitory.db.repository.ServiceRepository;
 import sharing.dormitory.db.repository.SuggestionRepository;
@@ -13,7 +12,6 @@ import sharing.dormitory.dto.SuggestionDTO;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.StoredProcedureQuery;
-import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -54,20 +52,16 @@ public class SuggestionsServiceImpl implements SuggestionsService {
         StoredProcedureQuery query;
         if (Objects.nonNull(suggestionDTO.getObject())) {
             query = entityManager.createNamedStoredProcedureQuery("insertObjectSuggestion");
-            Object object = objectRepository.findById(suggestionDTO.getObject()).orElseThrow(IllegalArgumentException::new);
-            query.setParameter("NAME_OBJECT", object.getName());
-            query.setParameter("DESCRIPTION_OBJECT", object.getDescription());
+            query.setParameter("OBJECT_ID", suggestionDTO.getObject());
         } else if (Objects.nonNull(suggestionDTO.getService())) {
             query = entityManager.createNamedStoredProcedureQuery("insertServiceSuggestion");
-            Service service = serviceRepository.findById(suggestionDTO.getService()).orElseThrow(IllegalArgumentException::new);
-            query.setParameter("NAME_SERVICE", service.getName());
-            query.setParameter("DESCRIPTION_SERVICE", service.getDescription());
+            query.setParameter("SERVICE_ID", suggestionDTO.getService());
         } else {
             throw new IllegalArgumentException("Wrong value of SuggestionDTO");
         }
         query.setParameter("NAME_SUGGESTION", suggestionDTO.getName());
         query.setParameter("DESCRIPTION_SUGGESTION", suggestionDTO.getDescription());
-        query.setParameter("AUTHOR", userId);
+        query.setParameter("AUTHOR_ID", userId);
         query.execute();
     }
 
