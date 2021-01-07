@@ -4,18 +4,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import sharing.dormitory.db.model.Offer;
 import sharing.dormitory.dto.OfferRequestDTO;
-import sharing.dormitory.service.ObjectsService;
-import sharing.dormitory.service.OffersService;
-import sharing.dormitory.service.RequestService;
-import sharing.dormitory.service.ServicesService;
-import sharing.dormitory.service.UserService;
+import sharing.dormitory.service.*;
 
 import java.util.List;
 
@@ -84,5 +76,13 @@ public class OffersController {
         offerRequest.setOfferId(offer.getId());
         requestService.create(offerRequest);
         return "request_recorded";
+    }
+
+    @GetMapping("/offers/{id}")
+    public String openOfferPage(Authentication authentication, @PathVariable Integer id, Model model) {
+        Offer offer = offersService.getOffer(id);
+        model.addAttribute("offer", offer);
+        model.addAttribute("userName", authentication.getName());
+        return "offer_page";
     }
 }

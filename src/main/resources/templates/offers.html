@@ -54,7 +54,7 @@
                     </thead>
                     <tbody>
                     <tr th:each="offer: ${offers}">
-                        <td th:text="${offer.name}"></td>
+                        <td><a th:text="${offer.name}" th:href="@{/offers/{id}(id=${offer.id})}"></a></td>
                         <td th:text="${offer.description}"></td>
                         <td th:text="${offer.creationDate}"></td>
                         <td th:text="${offer.user.username}"></td>

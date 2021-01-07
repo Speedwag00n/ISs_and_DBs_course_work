@@ -17,7 +17,8 @@ import javax.persistence.*;
         }
 )
 @Entity
-public class ServiceSuggestion {
-    @EmbeddedId
-    private ServiceSuggestionPk id;
+public class ServiceSuggestion extends Suggestion {
+    @OneToOne
+    @JoinColumn(name = "SERVICE")
+    private Service service;
 }

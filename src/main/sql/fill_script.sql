@@ -186,7 +186,7 @@ INSERT INTO OFFER (NAME, DESCRIPTION, STATUS, CREATION_DATE, AUTHOR)
 VALUES ('Доска для резки', 'Нужно быстро порезать морковку', 'OPEN', '2020-11-15 17:30:00+03', '4'),
        ('Парацетомол', 'От математики голова разболелась!', 'CANCELED', '2020-10-13 12:40:00+03', '5'),
        ('Точилка для ножей', 'Все ножи затупились(', 'OPEN', '2020-11-13 12:25:37+03', '7'),
-       ('Мышь', 'Тачпад отстой. Одолжите мышку', 'OPEN', '2020-11-01 21:39:32+03', '8'),
+       ('Мышь___', 'Тачпад отстой. Одолжите мышку', 'OPEN', '2020-11-01 21:39:32+03', '8'),
        ('Тазик', 'Для стирки!', 'RESOLVED', '2020-10-29 09:52:08+03', '17'),
        ('2 листа бумаги', 'Распечатать отчет по БД!', 'OPEN', '2020-11-07 13:22:31+03', '23'),
        ('Гантели', 'Надо подкачаться, так сказать ', 'OPEN', '2020-11-04 17:31:22+03', '38'),
@@ -248,7 +248,7 @@ VALUES (2, 8, 4);
 INSERT INTO OBJECT_OFFER_REQUEST (REQUEST, OFFER, OBJECT)
 VALUES (1, 1, 5);
 
-INSERT INTO OBJECT_SUGGESTION (SUGGESTION, OBJECT)
+INSERT INTO OBJECT_SUGGESTION (ID, OBJECT)
 VALUES ('1', '8'),
        ('2', '9'),
        ('3', '2'),
@@ -259,7 +259,7 @@ VALUES ('1', '8'),
        ('10', '13'),
        ('11', '14');
 
-INSERT INTO SERVICE_SUGGESTION (SUGGESTION, SERVICE)
+INSERT INTO SERVICE_SUGGESTION (ID, SERVICE)
 VALUES ('6', '1'),
        ('7', '2');
 

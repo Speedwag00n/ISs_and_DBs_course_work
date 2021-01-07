@@ -32,22 +32,17 @@ public class SuggestionsServiceImpl implements SuggestionsService {
         StoredProcedureQuery serviceQuery = entityManager.createNamedStoredProcedureQuery("getServiceSuggestionInDormitory");
         serviceQuery.setParameter("dormitoryId", dormitory.getId());
         serviceQuery.execute();
-        for (ServiceSuggestion suggestion : (List<ServiceSuggestion>)serviceQuery.getResultList()) {
-            result.add(suggestion.getId().getSuggestion());
-        }
+        result.addAll((List<Suggestion>)serviceQuery.getResultList());
         StoredProcedureQuery objectQuery = entityManager.createNamedStoredProcedureQuery("getObjectSuggestionInDormitory");
         objectQuery.setParameter("dormitoryId", dormitory.getId());
         objectQuery.execute();
-        for (ObjectSuggestion suggestion : (List<ObjectSuggestion>)objectQuery.getResultList()) {
-            result.add(suggestion.getId().getSuggestion());
-        }
+        result.addAll((List<Suggestion>)objectQuery.getResultList());
         return result;
     }
 
     @Override
-    public List getUserSuggestions(Integer userId) {
-        List result = new ArrayList<>();
-        result.addAll(suggestionRepository.findAllByUserId(userId));
+    public List<Suggestion> getUserSuggestions(Integer userId) {
+        List<Suggestion> result = suggestionRepository.findAllByUserId(userId);
         return result;
     }
 
@@ -70,5 +65,10 @@ public class SuggestionsServiceImpl implements SuggestionsService {
     @Override
     public void deleteSuggestion(Integer id) {
         suggestionRepository.deleteById(id);
+    }
+
+    @Override
+    public Suggestion getSuggestion(Integer id) {
+        return suggestionRepository.findById(id).orElseThrow(IllegalArgumentException::new);
     }
 }

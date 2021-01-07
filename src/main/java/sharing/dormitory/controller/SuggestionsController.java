@@ -5,6 +5,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import sharing.dormitory.db.model.ObjectSuggestion;
+import sharing.dormitory.db.model.ServiceSuggestion;
 import sharing.dormitory.db.model.Suggestion;
 import sharing.dormitory.dto.SuggestionDTO;
 import sharing.dormitory.service.ObjectsService;
@@ -59,5 +61,18 @@ public class SuggestionsController {
         Integer userId = userService.getUser(authentication.getName()).getId();
         suggestionsService.createSuggestion(suggestionDTO, userId);
         return suggestions(false, authentication, model);
+    }
+
+    @GetMapping("/suggestions/{id}")
+    public String openSuggestionPage(Authentication authentication, @PathVariable Integer id, Model model) {
+        Suggestion suggestion = suggestionsService.getSuggestion(id);
+        model.addAttribute("suggestion", suggestion);
+        if (suggestion instanceof ObjectSuggestion) {
+            model.addAttribute("type", "object");
+        } else if (suggestion instanceof ServiceSuggestion) {
+            model.addAttribute("type", "service");
+        }
+        model.addAttribute("userName", authentication.getName());
+        return "suggestion_page";
     }
 }
