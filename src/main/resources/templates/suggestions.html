@@ -56,7 +56,7 @@
                     <tr th:each="suggestion: ${suggestions}">
                         <td><a th:text="${suggestion.name}" th:href="@{/suggestions/{id}(id=${suggestion.id})}"></a></td>
                         <td th:text="${suggestion.description}"></td>
-                        <td th:text="${suggestion.creationDate}"></td>
+                        <td th:text="${#temporals.format(suggestion.creationDate, 'dd-MM-yyyy HH:mm')}"></td>
                         <td th:text="${suggestion.user.username}"></td>
                         <td style="font-size: 20pt">
                             <form th:if="${suggestion.user.username != userName}" method="get"

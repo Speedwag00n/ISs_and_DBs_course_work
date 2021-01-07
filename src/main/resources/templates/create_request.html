@@ -33,7 +33,7 @@
                     <tr>
                         <td th:text="${offer.name}"></td>
                         <td th:text="${offer.description}"></td>
-                        <td th:text="${offer.creationDate}"></td>
+                        <td th:text="${#temporals.format(offer.creationDate, 'dd-MM-yyyy HH:mm')}"></td>
                     </tr>
                     </tbody>
                 </table>
