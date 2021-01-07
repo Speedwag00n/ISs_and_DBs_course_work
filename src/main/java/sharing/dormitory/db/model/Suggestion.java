@@ -13,6 +13,16 @@ import java.time.OffsetDateTime;
 @TypeDef(name = "pgsql_enum", typeClass = PostgreSQLEnumType.class)
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@NamedStoredProcedureQuery(
+        name = "insertServiceOfferRequest",
+        procedureName = "INSERT_SUGGESTION_REQUEST",
+        parameters = {
+                @StoredProcedureParameter(name = "name", mode = ParameterMode.IN, type = String.class),
+                @StoredProcedureParameter(name = "content", mode = ParameterMode.IN, type = String.class),
+                @StoredProcedureParameter(name = "author", mode = ParameterMode.IN, type = Integer.class),
+                @StoredProcedureParameter(name = "suggestion", mode = ParameterMode.IN, type = Integer.class),
+        }
+)
 public class Suggestion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

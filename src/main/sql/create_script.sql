@@ -40,7 +40,7 @@ CREATE TABLE REVIEW
 CREATE TABLE OBJECT
 (
     ID           SERIAL PRIMARY KEY,
-    NAME         VARCHAR(32) CHECK (CHAR_LENGTH(USERNAME) >= 5)                NOT NULL,
+    NAME         VARCHAR(32) CHECK (CHAR_LENGTH(NAME) >= 5)                NOT NULL,
     DESCRIPTION  VARCHAR(256)                                                  NOT NULL,
     IMAGE        BYTEA,
     OBJECT_STATE "OBJECT_STATE" DEFAULT 'IN_STOCK',
@@ -50,7 +50,7 @@ CREATE TABLE OBJECT
 CREATE TABLE OFFER
 (
     ID            SERIAL PRIMARY KEY,
-    NAME          VARCHAR(32) CHECK (CHAR_LENGTH(USERNAME) >= 5)                NOT NULL,
+    NAME          VARCHAR(32) CHECK (CHAR_LENGTH(NAME) >= 5)                NOT NULL,
     DESCRIPTION   VARCHAR(256),
     STATUS        "STATUS" DEFAULT 'OPEN'                                       NOT NULL,
     CREATION_DATE TIMESTAMP WITH TIME ZONE                                      NOT NULL,
@@ -89,7 +89,6 @@ CREATE TABLE REQUEST
     NAME        VARCHAR(32) CHECK (CHAR_LENGTH(NAME) >= 6)                         NOT NULL,
     CONTENT     VARCHAR(256)                                                       NOT NULL,
     AUTHOR      INTEGER REFERENCES USERS (ID) ON UPDATE CASCADE ON DELETE CASCADE NOT NULL,
-    AGREED_TIME TIMESTAMP WITH TIME ZONE                                           NOT NULL
 );
 
 CREATE TABLE CATEGORY_OF_OBJECT

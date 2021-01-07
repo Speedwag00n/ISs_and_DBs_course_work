@@ -71,4 +71,9 @@ public class SuggestionsServiceImpl implements SuggestionsService {
     public void deleteSuggestion(Integer id) {
         suggestionRepository.deleteById(id);
     }
+
+    @Override
+    public Suggestion getSuggestion(Integer id) {
+        return suggestionRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+    }
 }

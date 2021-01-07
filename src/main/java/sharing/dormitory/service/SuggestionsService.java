@@ -14,4 +14,6 @@ public interface SuggestionsService {
     void createSuggestion(SuggestionDTO suggestion, Integer id);
 
     void deleteSuggestion(Integer id);
+
+    Suggestion getSuggestion(Integer id);
 }

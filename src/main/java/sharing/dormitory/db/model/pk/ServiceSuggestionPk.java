@@ -1,6 +1,8 @@
-package sharing.dormitory.db.model;
+package sharing.dormitory.db.model.pk;
 
 import lombok.Data;
+import sharing.dormitory.db.model.Service;
+import sharing.dormitory.db.model.Suggestion;
 
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;

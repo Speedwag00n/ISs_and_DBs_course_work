@@ -3,6 +3,7 @@ package sharing.dormitory.db.model;
 import com.vladmihalcea.hibernate.type.basic.PostgreSQLEnumType;
 import lombok.Data;
 import org.hibernate.annotations.TypeDef;
+import sharing.dormitory.db.model.pk.ServiceSuggestionPk;
 
 import javax.persistence.*;
 
