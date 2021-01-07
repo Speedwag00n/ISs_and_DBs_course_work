@@ -2,10 +2,10 @@ package sharing.dormitory.service;
 
 import lombok.AllArgsConstructor;
 import sharing.dormitory.db.enm.Status;
-import sharing.dormitory.db.model.Dormitory;
-import sharing.dormitory.db.model.ObjectSuggestion;
-import sharing.dormitory.db.model.ServiceSuggestion;
-import sharing.dormitory.db.model.Suggestion;
+import sharing.dormitory.db.model.*;
+import sharing.dormitory.db.model.Object;
+import sharing.dormitory.db.repository.ObjectRepository;
+import sharing.dormitory.db.repository.ServiceRepository;
 import sharing.dormitory.db.repository.SuggestionRepository;
 import sharing.dormitory.db.repository.UserRepository;
 import sharing.dormitory.dto.SuggestionDTO;
@@ -16,6 +16,7 @@ import javax.persistence.StoredProcedureQuery;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @org.springframework.stereotype.Service
 @AllArgsConstructor
@@ -23,6 +24,8 @@ public class SuggestionsServiceImpl implements SuggestionsService {
     @PersistenceContext
     private final EntityManager entityManager;
     private final SuggestionRepository suggestionRepository;
+    private final ObjectRepository objectRepository;
+    private final ServiceRepository serviceRepository;
     private final UserRepository userRepository;
 
     @Override
@@ -48,18 +51,24 @@ public class SuggestionsServiceImpl implements SuggestionsService {
 
     @Override
     public void createSuggestion(SuggestionDTO suggestionDTO, Integer userId) {
-        Suggestion suggestion = new Suggestion();
-        suggestion.setName(suggestionDTO.getName());
-        suggestion.setDescription(suggestionDTO.getDescription());
-        suggestion.setOfferStatus(Status.OPEN);
-        suggestion.setCreationDate(OffsetDateTime.now());
-        suggestion.setUser(userRepository.findById(userId).orElseThrow(IllegalArgumentException::new));
-        if (suggestionDTO.getObject() != null) {
-
-        } else if (suggestionDTO.getService() != null) {
-
+        StoredProcedureQuery query;
+        if (Objects.nonNull(suggestionDTO.getObject())) {
+            query = entityManager.createNamedStoredProcedureQuery("insertObjectSuggestion");
+            Object object = objectRepository.findById(suggestionDTO.getObject()).orElseThrow(IllegalArgumentException::new);
+            query.setParameter("NAME_OBJECT", object.getName());
+            query.setParameter("DESCRIPTION_OBJECT", object.getDescription());
+        } else if (Objects.nonNull(suggestionDTO.getService())) {
+            query = entityManager.createNamedStoredProcedureQuery("insertServiceSuggestion");
+            Service service = serviceRepository.findById(suggestionDTO.getService()).orElseThrow(IllegalArgumentException::new);
+            query.setParameter("NAME_SERVICE", service.getName());
+            query.setParameter("DESCRIPTION_SERVICE", service.getDescription());
+        } else {
+            throw new IllegalArgumentException("Wrong value of SuggestionDTO");
         }
-        suggestionRepository.save(suggestion);
+        query.setParameter("NAME_SUGGESTION", suggestionDTO.getName());
+        query.setParameter("DESCRIPTION_SUGGESTION", suggestionDTO.getDescription());
+        query.setParameter("AUTHOR", userId);
+        query.execute();
     }
 
     @Override

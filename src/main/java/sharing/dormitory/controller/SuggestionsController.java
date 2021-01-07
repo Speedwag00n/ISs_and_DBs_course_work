@@ -48,7 +48,7 @@ public class SuggestionsController {
         return "suggestions";
     }
 
-    @GetMapping("/suggestions/delete/{id}")
+    @PostMapping("/suggestions/delete/{id}")
     public String delete(Authentication authentication, Model model, @PathVariable Integer id) {
         suggestionsService.deleteSuggestion(id);
         return suggestions(false, authentication, model);

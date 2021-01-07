@@ -16,6 +16,17 @@ import javax.persistence.*;
                 @StoredProcedureParameter(name = "dormitoryId", mode = ParameterMode.IN, type = Integer.class)
         }
 )
+@NamedStoredProcedureQuery(
+        name = "insertServiceSuggestion",
+        procedureName = "INSERT_SERVICE_SUGGESTION",
+        parameters = {
+                @StoredProcedureParameter(name = "NAME_SUGGESTION", mode = ParameterMode.IN, type = String.class),
+                @StoredProcedureParameter(name = "DESCRIPTION_SUGGESTION", mode = ParameterMode.IN, type = String.class),
+                @StoredProcedureParameter(name = "NAME_SERVICE", mode = ParameterMode.IN, type = String.class),
+                @StoredProcedureParameter(name = "DESCRIPTION_SERVICE", mode = ParameterMode.IN, type = String.class),
+                @StoredProcedureParameter(name = "AUTHOR", mode = ParameterMode.IN, type = Integer.class)
+        }
+)
 @Entity
 public class ServiceSuggestion extends Suggestion {
     @OneToOne
