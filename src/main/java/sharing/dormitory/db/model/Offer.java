@@ -8,6 +8,7 @@ import sharing.dormitory.db.enm.Status;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @Data
 @Entity
@@ -35,4 +36,8 @@ public class Offer {
     @ManyToOne
     @JoinColumn(name = "AUTHOR")
     private User user;
+    @OneToMany(mappedBy = "offer")
+    private List<ObjectOfferRequest> objectOfferRequests;
+    @OneToMany(mappedBy = "offer")
+    private List<ServiceOfferRequest> serviceOfferRequests;
 }

@@ -10,6 +10,7 @@ import java.io.Serializable;
 public class SuggestionRequestDTO implements Serializable {
     private static final long serialVersionUID = -5277159414005078198L;
 
+    private String name;
     private String description;
     private Integer suggestionId;
     private Integer userId;

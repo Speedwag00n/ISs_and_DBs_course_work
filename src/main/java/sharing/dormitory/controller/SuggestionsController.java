@@ -21,6 +21,7 @@ import sharing.dormitory.service.SuggestionsService;
 import sharing.dormitory.service.UserService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -80,6 +81,11 @@ public class SuggestionsController {
             model.addAttribute("type", "service");
         }
         model.addAttribute("userName", authentication.getName());
+        if (suggestion.getUser().getUsername().equals(authentication.getName())) {
+            model.addAttribute("requests", suggestion.getRequests());
+        } else {
+            model.addAttribute("requests", suggestion.getRequests().stream().filter(element -> element.getUser().getUsername().equals(authentication.getName())).collect(Collectors.toList()));
+        }
         return "suggestion_page";
     }
 
@@ -102,5 +108,17 @@ public class SuggestionsController {
         requestService.createSuggestionRequest(suggestionRequest);
         return "request_recorded";
 //        вот тут страничка что реквест успешно отправлен как для офферов
+    }
+
+    @PostMapping("/suggestions/request/delete/{id}")
+    public String deleteRequest(Authentication authentication, Model model, @PathVariable Integer id) {
+        requestService.deleteRequest(id);
+        return suggestions(false, authentication, model);
+    }
+
+    @PostMapping("/suggestions/request/approve/{id}")
+    public String approveRequest(Authentication authentication, Model model, @PathVariable Integer id) {
+        requestService.approveRequest(id);
+        return suggestions(false, authentication, model);
     }
 }

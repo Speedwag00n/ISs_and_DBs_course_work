@@ -6,10 +6,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import sharing.dormitory.db.model.Offer;
+import sharing.dormitory.db.model.Request;
 import sharing.dormitory.dto.OfferRequestDTO;
 import sharing.dormitory.service.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -83,6 +86,26 @@ public class OffersController {
         Offer offer = offersService.getOffer(id);
         model.addAttribute("offer", offer);
         model.addAttribute("userName", authentication.getName());
+        List<Request> requests = new ArrayList<>();
+        requests.addAll(offer.getObjectOfferRequests());
+        requests.addAll(offer.getServiceOfferRequests());
+        if (offer.getUser().getUsername().equals(authentication.getName())) {
+            model.addAttribute("requests", requests);
+        } else {
+            model.addAttribute("requests", requests.stream().filter(element -> element.getUser().getUsername().equals(authentication.getName())).collect(Collectors.toList()));
+        }
         return "offer_page";
+    }
+
+    @PostMapping("/offers/request/delete/{id}")
+    public String deleteRequest(Authentication authentication, Model model, @PathVariable Integer id) {
+        requestService.deleteRequest(id);
+        return offers(false, authentication, model);
+    }
+
+    @PostMapping("/offers/request/approve/{id}")
+    public String approveRequest(Authentication authentication, Model model, @PathVariable Integer id) {
+        requestService.approveRequest(id);
+        return offers(false, authentication, model);
     }
 }

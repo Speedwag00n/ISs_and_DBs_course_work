@@ -1,16 +1,8 @@
 package sharing.dormitory.db.model;
 
 import lombok.Data;
-import sharing.dormitory.db.model.pk.RequestPk;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedStoredProcedureQuery;
-import javax.persistence.ParameterMode;
-import javax.persistence.StoredProcedureParameter;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -26,9 +18,11 @@ import javax.persistence.Table;
                 @StoredProcedureParameter(name = "object", mode = ParameterMode.IN, type = Integer.class)
         }
 )
-public class ObjectOfferRequest {
-    @EmbeddedId
-    private RequestPk id;
+public class ObjectOfferRequest extends Request {
+    @ManyToOne
+    @JoinColumn(name = "OFFER")
+    private Offer offer;
+
     @ManyToOne
     @JoinColumn(name = "OBJECT")
     private Object object;

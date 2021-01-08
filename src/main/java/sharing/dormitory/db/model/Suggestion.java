@@ -8,6 +8,7 @@ import sharing.dormitory.db.enm.Status;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @Data
 @TypeDef(name = "pgsql_enum", typeClass = PostgreSQLEnumType.class)
@@ -38,4 +39,6 @@ public class Suggestion {
     @ManyToOne
     @JoinColumn(name = "AUTHOR")
     private User user;
+    @OneToMany(mappedBy = "suggestion")
+    private List<SuggestionRequest> requests;
 }

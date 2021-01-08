@@ -1,8 +1,9 @@
 package sharing.dormitory.service;
 
 import lombok.AllArgsConstructor;
-import sharing.dormitory.db.model.Offer;
-import sharing.dormitory.db.model.Suggestion;
+import sharing.dormitory.db.enm.Status;
+import sharing.dormitory.db.model.*;
+import sharing.dormitory.db.repository.RequestRepository;
 import sharing.dormitory.dto.OfferRequestDTO;
 import sharing.dormitory.dto.SuggestionRequestDTO;
 
@@ -18,6 +19,7 @@ public class RequestServiceImpl implements RequestService {
     private final EntityManager entityManager;
     private final OffersService offersService;
     private final SuggestionsService suggestionsService;
+    private final RequestRepository requestRepository;
     public void createOfferRequest(OfferRequestDTO offerRequest) {
 
         // Get Offer from DTO
@@ -32,7 +34,7 @@ public class RequestServiceImpl implements RequestService {
             query.setParameter("service", offerRequest.getServiceId());
 
         } else throw new IllegalArgumentException("Wrong value of OfferRequestDTO");
-        query.setParameter("name", offer.getName());
+        query.setParameter("name", offerRequest.getName());
         query.setParameter("content", offerRequest.getDescription());
         query.setParameter("author", offerRequest.getUserId());
         query.setParameter("offer", offerRequest.getOfferId());
@@ -42,10 +44,28 @@ public class RequestServiceImpl implements RequestService {
     public void createSuggestionRequest(SuggestionRequestDTO suggestionRequest) {
         Suggestion suggestion = suggestionsService.getSuggestion(suggestionRequest.getSuggestionId());
         StoredProcedureQuery   query = entityManager.createNamedStoredProcedureQuery("insertSuggestionRequest");
-        query.setParameter("name", suggestion.getName());
+        query.setParameter("name", suggestionRequest.getName());
         query.setParameter("content", suggestionRequest.getDescription());
         query.setParameter("author", suggestionRequest.getUserId());
         query.setParameter("suggestion", suggestionRequest.getSuggestionId());
         query.execute();
+    }
+
+    @Override
+    public void deleteRequest(Integer id) {
+        requestRepository.deleteById(id);
+    }
+
+    @Override
+    public void approveRequest(Integer id) {
+        Request request = requestRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        if (request instanceof ObjectOfferRequest) {
+            ((ObjectOfferRequest) request).getOffer().setOfferStatus(Status.RESOLVED);
+        } else if (request instanceof ServiceOfferRequest) {
+            ((ServiceOfferRequest) request).getOffer().setOfferStatus(Status.RESOLVED);
+        } else if (request instanceof SuggestionRequest) {
+            ((SuggestionRequest) request).getSuggestion().setOfferStatus(Status.RESOLVED);
+        }
+        requestRepository.save(request);
     }
 }
