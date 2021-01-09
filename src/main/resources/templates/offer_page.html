@@ -33,10 +33,12 @@
                     </div>
                     <div>Author: <span th:text="${offer.user.username}"></span></div>
                     <div class="mt-3">
-                        <form th:if="${offer.user.username != userName}" method="get"
-                              th:action="@{/offers/request/{id}(id=${offer.id})}">
-                            <button class="btn btn-success" type="submit">Respond</button>
-                        </form>
+                        <div th:if="${offer.offerStatus == T(sharing.dormitory.db.enm.Status).OPEN}" class="text-danger">
+                            <form th:if="${offer.user.username != userName}" method="get"
+                                  th:action="@{/offers/request/{id}(id=${offer.id})}">
+                                <button class="btn btn-success" type="submit">Respond</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
