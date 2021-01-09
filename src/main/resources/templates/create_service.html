@@ -8,8 +8,8 @@
     <div class="container">
         <div class="w-50 mt-5 mx-auto">
             <div class="card">
-                <h3 class="card-header">
-                    <i class="fa fa-user"></i> Add new service
+                <h3 class="card-header fw-bold">
+                    Add new service
                 </h3>
                 <div class="card-block p-5">
                     <form action="#" th:action="@{/services/create}" th:object="${newService}" method="post" onsubmit="return validateServiceForm(this);">

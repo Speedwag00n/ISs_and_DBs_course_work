@@ -16,8 +16,8 @@
 <div class="container">
     <div class="w-50 mt-5 mx-auto">
         <div class="card">
-            <h3 class="card-header">
-                <i class="fa fa-user"></i> Create new suggestion
+            <h3 class="card-header fw-bold">
+                Create new suggestion
             </h3>
             <div class="card-block p-5">
                 <form id="suggestion_form" action="#" th:action="@{/suggestions/create}" th:object="${newSuggestion}" method="post" onsubmit="return validateSuggestionForm(this);">

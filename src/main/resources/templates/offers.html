@@ -8,26 +8,13 @@
 <div class="container">
     <div class="w-100 ml-auto mr-auto mt-5">
         <div class="card">
-            <h3 class="card-header">
-                <i class="fa fa-user"></i> Actions
+            <h3 class="card-header fw-bold">
+                Actions
             </h3>
             <div class="card-block p-2 mx-auto">
-                <a th:href="@{~/offers/create}" class="btn btn-info my-2 my-sm-0 btn-lg mx-5">
+                <a th:href="@{~/offers/create}" class="btn btn-primary my-2 my-sm-0 btn-lg mx-5">
                     Create offer
                 </a>
-            </div>
-        </div>
-
-        <div class="card mt-5">
-            <h3 class="card-header">
-                <i class="fa fa-user"></i> Filters
-            </h3>
-            <div class="card-block p-2 ml-2">
-                <fieldset>
-                    <input th:if="${showMy}" name="show_my" type="checkbox" id="show_my" checked>
-                    <input th:unless="${showMy}" name="show_my" type="checkbox" id="show_my">
-                    <label for="show_my" class="ml-2" >Show only my offers</label>
-                </fieldset>
             </div>
         </div>
 
@@ -38,33 +25,49 @@
         </div>
 
         <div th:unless="${#lists.isEmpty(offers)}" class="card mt-5">
-            <h3 class="card-header">
-                <i class="fa fa-user"></i> Open offers
+            <h3 class="card-header fw-bold">
+                Offers
             </h3>
             <div class="card-block">
-                <table class="table table-striped p-5">
-                    <thead>
+                <div id="toolbar">
+                </div>
+                <table class="table table-striped table-bordered table-hover p-5 text-center"
+                       data-toolbar="#toolbar"
+                       data-toggle="table"
+                       data-search="true"
+                       data-show-refresh="true"
+                       data-show-toggle="false"
+                       data-show-columns="true"
+                       data-show-pagination-switch="true"
+                       data-pagination="true"
+                       data-page-size="10"
+                       data-page-list="[1, 5, 10, 20, 45, ALL]"
+                       data-show-multi-sort="true"
+                       data-sort-order="asc"
+                       data-sort-name="test_status">
+                    <thead class="bg-secondary">
                     <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Creation date</th>
-                        <th>Author</th>
-                        <th></th>
+                        <th data-field="name" scope="col" class="text-white table-col-2" data-sortable="true">Name</th>
+                        <th data-field="description" scope="col" class="text-white table-col-4" data-sortable="true">Description</th>
+                        <th data-field="creation_date" scope="col" class="text-white table-col-2" data-sortable="true">Creation date</th>
+                        <th data-field="author" scope="col" class="text-white table-col-2" data-sortable="true">Author</th>
+                        <th data-field="actions" scope="col" class="text-white table-col-2" data-sortable="false">Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="offer: ${offers}">
-                        <td><a th:text="${offer.name}" th:href="@{/offers/{id}(id=${offer.id})}"></a></td>
-                        <td th:text="${offer.description}"></td>
-                        <td th:text="${#temporals.format(offer.creationDate, 'dd-MM-yyyy HH:mm')}"></td>
-                        <td th:text="${offer.user.username}"></td>
-                        <td style="font-size: 20pt">
+                        <td class="text-black" ><a th:text="${offer.name}" th:href="@{/offers/{id}(id=${offer.id})}"></a></td>
+                        <td class="text-black" th:text="${offer.description}"></td>
+                        <td class="text-black" th:text="${#temporals.format(offer.creationDate, 'dd-MM-yyyy HH:mm')}"></td>
+                        <td class="text-black" th:text="${offer.user.username}"></td>
+                        <td class="text-black" style="font-size: 20pt">
                             <form th:if="${offer.user.username != userName}" method="get"
                                   th:action="@{/offers/request/{id}(id=${offer.id})}">
                                 <button class="btn btn-success" type="submit">Respond</button>
                             </form>
-                            <form th:if="${offer.user.username == userName}" class="btn btn-danger btn-outline-danger my-2 my-sm-0 btn-sm" method="post" th:action="@{/offers/delete/{id}(id=${offer.id})}">
-                                <button class="btn-close" type="submit"></button>
+                            <form th:if="${offer.user.username == userName}" method="post"
+                                  th:action="@{/offers/delete/{id}(id=${offer.id})}">
+                                <button class="btn btn-danger" type="submit">Delete</button>
                             </form>
                         </td>
                     </tr>
@@ -74,16 +77,9 @@
         </div>
     </div>
 </div>
-<script>
-    let checkbox = document.querySelector("input[name=show_my]");
-
-    checkbox.addEventListener('change', function() {
-        if (this.checked) {
-            window.location.href = '/offers?show_my=true'
-        } else {
-            window.location.href = '/offers'
-        }
-    });
-</script>
+<script th:src="@{/js/thirdparty/jquery-3.5.1.min.js}"></script>
+<script th:src="@{/js/thirdparty/bootstrap.bundle.js}"></script>
+<script th:src="@{/js/thirdparty/bootstrap-table.js}"></script>
+<script th:src="@{/js/thirdparty/bootstrap-table-multiple-sort.js}"></script>
 </body>
 </html>

@@ -21,22 +21,22 @@
     <div class="container">
         <div class="w-50 mt-5 mx-auto">
             <div sec:authorize="isAnonymous()" class="card">
-                <h3 class="card-header">
-                    <i class="fa fa-user"></i> You aren't authenticated. Log in or create new account
+                <h3 class="card-header fw-bold">
+                    You aren't authenticated. Log in or create new account
                 </h3>
                 <div class="card-block p-5 mx-auto">
-                    <a th:href="@{~/login}" class="btn btn-info my-2 my-sm-0 btn-lg mx-5">
+                    <a th:href="@{~/login}" class="btn btn-primary my-2 my-sm-0 btn-lg mx-5">
                         Login
                     </a>
-                    <a th:href="@{~/register}" class="btn btn-info my-2 my-sm-0 btn-lg mx-5">
+                    <a th:href="@{~/register}" class="btn btn-primary my-2 my-sm-0 btn-lg mx-5">
                         Register
                     </a>
                 </div>
             </div>
 
             <div sec:authorize="isAuthenticated()" class="card">
-                <h3 class="card-header">
-                    <i class="fa fa-user"></i> Profile
+                <h3 class="card-header fw-bold">
+                    Profile
                 </h3>
                 <div class="card-block p-5 h4">
                     <div>Username: <span th:text="${user.username}"></span></div>

@@ -1,14 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:insert="fragments.html :: headerfiles">
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <title>Objects</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
     <nav th:insert="fragments.html :: nav"></nav>
@@ -16,11 +12,11 @@
     <div class="container">
         <div class="w-100 ml-auto mr-auto mt-5">
             <div class="card">
-                <h3 class="card-header">
-                    <i class="fa fa-user"></i> Actions
+                <h3 class="card-header fw-bold">
+                    Actions
                 </h3>
                 <div class="card-block p-2 mx-auto">
-                    <a th:href="@{~/objects/create}" class="btn btn-info my-2 my-sm-0 btn-lg mx-5">
+                    <a th:href="@{~/objects/create}" class="btn btn-primary my-2 my-sm-0 btn-lg mx-5">
                         Create object
                     </a>
                 </div>
@@ -33,32 +29,45 @@
             </div>
 
             <div th:unless="${#lists.isEmpty(objects)}" class="card mt-5">
-                <h3 class="card-header">
-                    <i class="fa fa-user"></i> Your objects
+                <h3 class="card-header fw-bold">
+                    Your objects
                 </h3>
                 <div class="card-block">
-                    <table class="table table-striped p-5">
-                        <thead>
+                    <div id="toolbar">
+                    </div>
+                    <table class="table table-striped table-bordered table-hover p-5 text-center"
+                           data-toolbar="#toolbar"
+                           data-toggle="table"
+                           data-search="true"
+                           data-show-refresh="true"
+                           data-show-toggle="false"
+                           data-show-columns="true"
+                           data-show-pagination-switch="true"
+                           data-pagination="true"
+                           data-page-size="10"
+                           data-page-list="[1, 5, 10, 20, 45, ALL]"
+                           data-show-multi-sort="true"
+                           data-sort-order="asc"
+                           data-sort-name="test_status">
+                        <thead class="bg-secondary">
                             <tr>
-                                <th></th>
-                                <th>Name</th>
-                                <th>Description</th>
-                                <th>Status</th>
-                                <th></th>
+                                <th data-field="name" scope="col" class="text-white table-col-3" data-sortable="true">Name</th>
+                                <th data-field="description" scope="col" class="text-white table-col-5" data-sortable="true">Description</th>
+                                <th data-field="status" scope="col" class="text-white table-col-2" data-sortable="true">Status</th>
+                                <th data-field="actions" scope="col" class="text-white table-col-2" data-sortable="false">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr th:each="object: ${objects}">
-                                <td th:text="${object.image}"></td>
-                                <td th:text="${object.name}"></td>
-                                <td th:text="${object.description}"></td>
-                                <td>
+                                <td class="text-black" th:text="${object.name}"></td>
+                                <td class="text-black" th:text="${object.description}"></td>
+                                <td class="text-black">
                                     <span th:if="${object.state == T(sharing.dormitory.db.enm.ObjectState).IN_STOCK}">In stock</span>
                                     <span th:if="${object.state == T(sharing.dormitory.db.enm.ObjectState).SHARED}">Shared</span>
                                 </td>
-                                <td>
-                                    <form class="btn btn-danger btn-outline-danger my-2 my-sm-0 btn-sm" method="post" th:action="@{/objects/delete/{id}(id=${object.id})}">
-                                        <button class="btn btn-close btn-sm" type="submit"></button>
+                                <td class="text-black">
+                                    <form method="post" th:action="@{/objects/delete/{id}(id=${object.id})}">
+                                        <button class="btn btn-danger" type="submit">Delete</button>
                                     </form>
                                 </td>
                             </tr>
@@ -68,5 +77,9 @@
             </div>
         </div>
     </div>
+    <script th:src="@{/js/thirdparty/jquery-3.5.1.min.js}"></script>
+    <script th:src="@{/js/thirdparty/bootstrap.bundle.js}"></script>
+    <script th:src="@{/js/thirdparty/bootstrap-table.js}"></script>
+    <script th:src="@{/js/thirdparty/bootstrap-table-multiple-sort.js}"></script>
 </body>
 </html>

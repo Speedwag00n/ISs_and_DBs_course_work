@@ -16,8 +16,8 @@
 <div class="container">
     <div class="w-50 mt-5 mx-auto">
         <div class="card">
-            <h3 class="card-header">
-                <i class="fa fa-user"></i> Add new object
+            <h3 class="card-header fw-bold">
+                Add new object
             </h3>
             <div class="card-block p-5">
                 <form action="#" th:action="@{/objects/create}" th:object="${newObject}" method="post" onsubmit="return validateObjectForm(this);">
