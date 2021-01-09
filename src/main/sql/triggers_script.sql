@@ -7,7 +7,7 @@ DECLARE
                       WHERE ID = NEW.service);
     USER_REQ INT := (SELECT AUTHOR
                      FROM request
-                     WHERE ID = NEW.request);
+                     WHERE ID = NEW.ID);
 BEGIN
     IF USER_SER != USER_REQ THEN
         RETURN NULL;
@@ -31,7 +31,7 @@ DECLARE
                               WHERE ID = NEW.OBJECT);
     USER_REQ INT := (SELECT AUTHOR
                         FROM request
-                        WHERE ID = NEW.request);
+                        WHERE ID = NEW.ID);
 BEGIN
     IF USER_OBJ != USER_REQ THEN
         RETURN NULL;
@@ -118,7 +118,7 @@ $$
 DECLARE
     REQUEST_AUTHOR       INTEGER := (SELECT AUTHOR
                                      FROM REQUEST
-                                     WHERE ID = NEW.REQUEST);
+                                     WHERE ID = NEW.ID);
     SUGGESTION_AUTHOR    INTEGER := (SELECT AUTHOR
                                      FROM SUGGESTION
                                      WHERE ID = NEW.SUGGESTION);
@@ -148,7 +148,7 @@ $$
 DECLARE
     REQUEST_AUTHOR    INTEGER := (SELECT AUTHOR
                                   FROM REQUEST
-                                  WHERE ID = NEW.REQUEST);
+                                  WHERE ID = NEW.ID);
     OFFER_AUTHOR      INTEGER := (SELECT AUTHOR
                                   FROM OFFER
                                   WHERE ID = NEW.OFFER);
@@ -178,7 +178,7 @@ $$
 DECLARE
     REQUEST_AUTHOR    INTEGER := (SELECT AUTHOR
                                   FROM REQUEST
-                                  WHERE ID = NEW.REQUEST);
+                                  WHERE ID = NEW.ID);
     OFFER_AUTHOR      INTEGER := (SELECT AUTHOR
                                   FROM OFFER
                                   WHERE ID = NEW.OFFER);
