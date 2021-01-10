@@ -4,21 +4,14 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import sharing.dormitory.db.enm.ObjectState;
 import sharing.dormitory.db.model.ObjectSuggestion;
 import sharing.dormitory.db.model.ServiceSuggestion;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import sharing.dormitory.db.model.Suggestion;
 import sharing.dormitory.dto.SuggestionDTO;
 import sharing.dormitory.dto.SuggestionRequestDTO;
-import sharing.dormitory.service.ObjectsService;
-import sharing.dormitory.service.RequestService;
-import sharing.dormitory.service.ServicesService;
-import sharing.dormitory.service.SuggestionsService;
-import sharing.dormitory.service.UserService;
+import sharing.dormitory.service.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -59,7 +52,7 @@ public class SuggestionsController {
     public String createSuggestionPage(Authentication authentication,Model model) {
         Integer userId = userService.getUser(authentication.getName()).getId();
         model.addAttribute("newSuggestion", new SuggestionDTO());
-        model.addAttribute("objects", objectsService.getUserObject(userId));
+        model.addAttribute("objects", objectsService.getUserObject(userId).stream().filter(element -> element.getState() == ObjectState.IN_STOCK).collect(Collectors.toList()));
         model.addAttribute("services", servicesService.getUserService(userId));
         return "create_suggestion";
     }

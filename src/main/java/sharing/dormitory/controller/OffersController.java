@@ -5,6 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import sharing.dormitory.db.enm.ObjectState;
 import sharing.dormitory.db.model.Offer;
 import sharing.dormitory.db.model.Request;
 import sharing.dormitory.dto.OfferRequestDTO;
@@ -63,7 +64,7 @@ public class OffersController {
     public String request(Authentication authentication, Model model, @PathVariable Integer id) {
         Integer userId = userService.getUser(authentication.getName()).getId();
         model.addAttribute("offer", offersService.getOffer(id));
-        model.addAttribute("objects", objectsService.getUserObject(userId));
+        model.addAttribute("objects", objectsService.getUserObject(userId).stream().filter(element -> element.getState() == ObjectState.IN_STOCK).collect(Collectors.toList()));
         model.addAttribute("services", servicesService.getUserService(userId));
         model.addAttribute("offerRequest", new OfferRequestDTO());
         return "create_request_offer";

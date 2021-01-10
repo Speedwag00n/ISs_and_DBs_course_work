@@ -1,7 +1,10 @@
 package sharing.dormitory.service;
 
 import lombok.AllArgsConstructor;
+import sharing.dormitory.db.enm.ObjectState;
 import sharing.dormitory.db.model.Dormitory;
+import sharing.dormitory.db.model.Object;
+import sharing.dormitory.db.model.ObjectSuggestion;
 import sharing.dormitory.db.model.Suggestion;
 import sharing.dormitory.db.repository.ObjectRepository;
 import sharing.dormitory.db.repository.ServiceRepository;
@@ -67,6 +70,12 @@ public class SuggestionsServiceImpl implements SuggestionsService {
 
     @Override
     public void deleteSuggestion(Integer id) {
+        Suggestion suggestion = suggestionRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        if (suggestion instanceof ObjectSuggestion) {
+            Object object = ((ObjectSuggestion) suggestion).getObject();
+            object.setState(ObjectState.IN_STOCK);
+            objectRepository.save(object);
+        }
         suggestionRepository.deleteById(id);
     }
 

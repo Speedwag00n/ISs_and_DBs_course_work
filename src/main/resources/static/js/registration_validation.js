@@ -1,3 +1,6 @@
+const email_regexp = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+const phone_regexp = /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/
+
 function validateRegistrationForm(form) {
 	let username = form.username.value;
 	let password = form.password.value;
@@ -41,11 +44,17 @@ function validateRegistrationForm(form) {
 
 	if (!(isPresented(email, "Email", "email"))) {
 		valid = false;
+	} else if (!email_regexp.test(String(email).toLowerCase())) {
+        showWarning("Pass valid email", "email");
+		valid = false;
 	}
 
 	if (!(isPresented(telephone, "Telephone", "telephone"))) {
 		valid = false;
-	}
+	} else if (!phone_regexp.test(String(telephone).toLowerCase())) {
+        showWarning("Pass valid phone number", "telephone");
+        valid = false;
+    }
 
 	if (!(isPresented(dormitory, "Dormitory", "dormitory"))) {
 		valid = false;

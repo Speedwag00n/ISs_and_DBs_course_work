@@ -1,8 +1,11 @@
 package sharing.dormitory.service;
 
 import lombok.AllArgsConstructor;
+import sharing.dormitory.db.enm.ObjectState;
 import sharing.dormitory.db.enm.Status;
 import sharing.dormitory.db.model.*;
+import sharing.dormitory.db.model.Object;
+import sharing.dormitory.db.repository.ObjectRepository;
 import sharing.dormitory.db.repository.RequestRepository;
 import sharing.dormitory.dto.OfferRequestDTO;
 import sharing.dormitory.dto.SuggestionRequestDTO;
@@ -20,6 +23,7 @@ public class RequestServiceImpl implements RequestService {
     private final OffersService offersService;
     private final SuggestionsService suggestionsService;
     private final RequestRepository requestRepository;
+    private final ObjectRepository objectRepository;
     public void createOfferRequest(OfferRequestDTO offerRequest) {
 
         // Get Offer from DTO
@@ -27,7 +31,9 @@ public class RequestServiceImpl implements RequestService {
         StoredProcedureQuery query;
         if (Objects.nonNull(offerRequest.getObjectId())) {
             query = entityManager.createNamedStoredProcedureQuery("insertObjectOfferRequest");
-            query.setParameter("object", offerRequest.getObjectId());
+            query.setParameter("object_id", offerRequest.getObjectId());
+            System.out.println("alarm");
+            System.out.println(offerRequest.getObjectId());
         }
         else if (Objects.nonNull(offerRequest.getServiceId())) {
             query = entityManager.createNamedStoredProcedureQuery("insertServiceOfferRequest");
@@ -53,6 +59,12 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public void deleteRequest(Integer id) {
+        Request request = requestRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        if (request instanceof ObjectOfferRequest) {
+            Object object = ((ObjectOfferRequest) request).getObject();
+            object.setState(ObjectState.IN_STOCK);
+            objectRepository.save(object);
+        }
         requestRepository.deleteById(id);
     }
 

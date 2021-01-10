@@ -51,7 +51,8 @@
                         <th data-field="description" scope="col" class="text-white table-col-4" data-sortable="true">Description</th>
                         <th data-field="creation_date" scope="col" class="text-white table-col-2" data-sortable="true">Creation date</th>
                         <th data-field="author" scope="col" class="text-white table-col-2" data-sortable="true">Author</th>
-                        <th data-field="actions" scope="col" class="text-white table-col-2" data-sortable="false">Action</th>
+                        <th data-field="status" scope="col" class="text-white table-col-1" data-sortable="true">Status</th>
+                        <th data-field="actions" scope="col" class="text-white table-col-1" data-sortable="false">Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -60,6 +61,11 @@
                         <td class="text-black" th:text="${offer.description}"></td>
                         <td class="text-black" th:text="${#temporals.format(offer.creationDate, 'dd-MM-yyyy HH:mm')}"></td>
                         <td class="text-black" th:text="${offer.user.username}"></td>
+                        <td class="text-black">
+                            <span th:if="${offer.offerStatus == T(sharing.dormitory.db.enm.Status).OPEN}" class="text-primary">Open</span>
+                            <span th:if="${offer.offerStatus == T(sharing.dormitory.db.enm.Status).CANCELED}" class="text-danger">Canceled</span>
+                            <span th:if="${offer.offerStatus == T(sharing.dormitory.db.enm.Status).RESOLVED}" class="text-success">Resolved</span>
+                        </td>
                         <td class="text-black" style="font-size: 20pt">
                             <form th:if="${offer.user.username != userName}" method="get"
                                   th:action="@{/offers/request/{id}(id=${offer.id})}">
