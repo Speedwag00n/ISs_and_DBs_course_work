@@ -25,9 +25,6 @@ public class RequestServiceImpl implements RequestService {
     private final RequestRepository requestRepository;
     private final ObjectRepository objectRepository;
     public void createOfferRequest(OfferRequestDTO offerRequest) {
-
-        // Get Offer from DTO
-        Offer offer = offersService.getOffer(offerRequest.getOfferId());
         StoredProcedureQuery query;
         if (Objects.nonNull(offerRequest.getObjectId())) {
             query = entityManager.createNamedStoredProcedureQuery("insertObjectOfferRequest");
@@ -48,7 +45,6 @@ public class RequestServiceImpl implements RequestService {
     }
 
     public void createSuggestionRequest(SuggestionRequestDTO suggestionRequest) {
-        Suggestion suggestion = suggestionsService.getSuggestion(suggestionRequest.getSuggestionId());
         StoredProcedureQuery   query = entityManager.createNamedStoredProcedureQuery("insertSuggestionRequest");
         query.setParameter("name", suggestionRequest.getName());
         query.setParameter("content", suggestionRequest.getDescription());
